@@ -1,0 +1,45 @@
+- platform: moon
+
+#- platform: sonarr
+#  api_key: !secret sonarr_api_key
+#  host: !secret swarm_IP
+#  monitored_conditions:
+#    - upcoming
+#  days: 3
+
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+#    - 'date_time'
+#    - 'date_time_iso'
+#    - 'time_date'
+#    - 'time_utc'
+    - 'beat'
+
+- platform: zestimate
+  api_key: !secret zillow_api_key
+  zpid:
+    - !secret zpid1 
+    - !secret zpid2
+    - !secret zpid3
+    - !secret zpid4
+    - !secret zpid5
+
+#- platform: yr
+#  name: "YR.no Forecast"
+#  forecast: 24
+#  monitored_conditions:
+#    - temperature
+##    - symbol
+#    - precipitation
+##    - windSpeed
+##    - pressure
+#    - windDirection
+#    - humidity
+#    - fog
+##    - cloudiness
+##    - lowClouds
+##    - mediumClouds
+##    - highClouds
+##    - dewpointTemperature

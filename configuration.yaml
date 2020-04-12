@@ -1,10 +1,112 @@
-
 # Configure a default setup of Home Assistant (frontend, api, etc)
-default_config:
+#default_config:
+
+system_health:
+zeroconf:
+config:
+map:
+person:
+mobile_app:
+sun:
+#python_script:
+#ios:
+
+hacs:
+  token: !secret github_hacs_token
+  appdaemon: True
+  theme: True
+  python_script: True
+  sidepanel_title: HACS
+  sidepanel_icon: "mdi:cloud-circle"
+  options:
+    experimental: True
+
+
+ssdp:
+updater:
+  reporting: False
+#  enable: False
+
+history:
+  exclude:
+    domains:
+#      - automation
+      - weblink
+      - updater
+    entities:
+      - sensor.last_boot
+      - sensor.date
+
+logbook:
+  exclude:
+    entities:
+      - sensor.last_boot
+      - sensor.date
+    domains:
+      - sun
+      - weblink
+
+asuswrt:
+  host: 10.0.0.4
+  username: !secret asuswrt_username
+  password: !secret asuswrt_password
+  mode: ap
+#  protocol: telnet
+  protocol: ssh
+  port: 22
+  require_ip: True
+  sensors:
+    - upload
+    - download
+#    - upload_speed
+#    - download_speed
+
+frontend:
+  themes: !include_dir_merge_named themes
+
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-# http:
-#   base_url: example.duckdns.org:8123
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - !secret adam_IP
+    - !secret munk_IP
+  base_url: https://homeassistant.ourhouse.services
+
+discovery:
+#  enable:
+#    - dlna_dmr
+
+#influxdb:
+#  host: 10.0.0.115
+#  max_retries: 5
+#  tags_attributes:
+#    - friendly_name
+
+prometheus:
+  namespace: hassio
+
+telegram_bot:
+  platform: broadcast
+  api_key: !secret telegram_api_homey
+  allowed_chat_ids:
+    - 841656683
+
+#input_datetime:
+#  both_date_and_time:
+#    name: Input with both date and time
+#    has_date: true
+#    has_time: true
+#  only_date:
+#    name: Input with only date
+#    has_date: true
+#    has_time: false
+#  only_time:
+#    name: Input with only time
+#    has_date: false
+#    has_time: true
+
+#device_sun_light_trigger:
 
 # Text to speech
 tts:
@@ -12,5 +114,17 @@ tts:
 
 group: !include groups.yaml
 automation: !include automations.yaml
+#light: !include lights.yaml
+sensor: !include sensors.yaml
+switch: !include switches.yaml
+
+weather: !include weather.yaml
+media_player: !include media_player.yaml
+
 script: !include scripts.yaml
-scene: !include scenes.yaml
+notify: !include notify.yaml
+
+
+#panel_iframe: !include panel_iframe.yaml
+#device_tracker: !include dev_trackers.yaml
+#keyboard_remote: !include keyboard_remotes.yaml
