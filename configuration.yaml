@@ -13,9 +13,6 @@ sun:
 
 hacs:
   token: !secret github_hacs_token
-  appdaemon: True
-  theme: True
-  python_script: True
   sidepanel_title: HACS
   sidepanel_icon: "mdi:cloud-circle"
   options:
@@ -46,20 +43,20 @@ logbook:
       - sun
       - weblink
 
-asuswrt:
-  host: 10.0.0.4
-  username: !secret asuswrt_username
-  password: !secret asuswrt_password
-  mode: ap
-#  protocol: telnet
-  protocol: ssh
-  port: 22
-  require_ip: True
-  sensors:
-    - upload
-    - download
-#    - upload_speed
-#    - download_speed
+#asuswrt:
+#  host: 10.0.0.4
+#  username: !secret asuswrt_username
+#  password: !secret asuswrt_password
+#  mode: ap
+##  protocol: telnet
+#  protocol: ssh
+#  port: 22
+#  require_ip: True
+#  sensors:
+#    - upload
+#    - download
+##    - upload_speed
+##    - download_speed
 
 frontend:
   themes: !include_dir_merge_named themes
@@ -108,6 +105,7 @@ telegram_bot:
 
 #device_sun_light_trigger:
 
+
 # Text to speech
 tts:
   - platform: google_translate
@@ -117,7 +115,6 @@ automation: !include automations.yaml
 #light: !include lights.yaml
 sensor: !include sensors.yaml
 switch: !include switches.yaml
-
 weather: !include weather.yaml
 media_player: !include media_player.yaml
 
@@ -128,3 +125,5 @@ notify: !include notify.yaml
 #panel_iframe: !include panel_iframe.yaml
 #device_tracker: !include dev_trackers.yaml
 #keyboard_remote: !include keyboard_remotes.yaml
+
+homeassistant: !include customizations.yaml
