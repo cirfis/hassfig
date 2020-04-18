@@ -1,6 +1,9 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 #default_config:
 
+#python_script:
+#ios:
+
 system_health:
 zeroconf:
 config:
@@ -8,8 +11,6 @@ map:
 person:
 mobile_app:
 sun:
-#python_script:
-#ios:
 
 hacs:
   token: !secret github_hacs_token
@@ -18,6 +19,7 @@ hacs:
   options:
     experimental: True
 
+#browser_mod:
 
 ssdp:
 updater:
@@ -43,24 +45,6 @@ logbook:
       - sun
       - weblink
 
-#asuswrt:
-#  host: 10.0.0.4
-#  username: !secret asuswrt_username
-#  password: !secret asuswrt_password
-#  mode: ap
-##  protocol: telnet
-#  protocol: ssh
-#  port: 22
-#  require_ip: True
-#  sensors:
-#    - upload
-#    - download
-##    - upload_speed
-##    - download_speed
-
-frontend:
-  themes: !include_dir_merge_named themes
-
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
@@ -70,15 +54,18 @@ http:
     - !secret munk_IP
   base_url: https://homeassistant.ourhouse.services
 
+frontend:
+  themes: !include_dir_merge_named themes
+
 discovery:
 #  enable:
 #    - dlna_dmr
 
-#influxdb:
-#  host: 10.0.0.115
-#  max_retries: 5
-#  tags_attributes:
-#    - friendly_name
+influxdb:
+  host: !secret dolf_IP
+  max_retries: 5
+  tags_attributes:
+    - friendly_name
 
 prometheus:
   namespace: hassio
@@ -106,24 +93,20 @@ telegram_bot:
 #device_sun_light_trigger:
 
 
-# Text to speech
 tts:
   - platform: google_translate
 
 group: !include groups.yaml
 automation: !include automations.yaml
-#light: !include lights.yaml
+device_tracker: !include trackers.yaml
+light: !include lights.yaml
 sensor: !include sensors.yaml
 switch: !include switches.yaml
 weather: !include weather.yaml
 media_player: !include media_player.yaml
-
+camera: !include cameras.yaml
 script: !include scripts.yaml
 notify: !include notify.yaml
 
 
-#panel_iframe: !include panel_iframe.yaml
-#device_tracker: !include dev_trackers.yaml
 #keyboard_remote: !include keyboard_remotes.yaml
-
-homeassistant: !include customizations.yaml

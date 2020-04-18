@@ -1,0 +1,9 @@
+#- platform: unsplash
+#  api_key: !secret unsplash_access_key
+
+- platform: generic
+  name: "Grow Room Cam"
+  still_image_url: http://gropi.cirfis.org/picture/1/current/
+  stream_source: http://gropi.cirfis.org/picture/1/frame/
+  verify_ssl: false
+  framerate: 15

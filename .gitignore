@@ -6,7 +6,7 @@
 !*.yaml
 !.gitignore
 !*.md
-ssh_key
+
 
 # Ignore folders.
 .storage
@@ -17,3 +17,4 @@ ssh_key
 ip_bans.yaml
 secrets.yaml
 known_devices.yaml
+ssh_key

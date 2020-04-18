@@ -2,12 +2,12 @@
   api_key: !secret openweathermap_api_key
   mode: freedaily
 
-- platform: darksky
-  api_key: !secret darksky_api_key
-  mode: hourly
-  units: us
+#- platform: darksky
+#  api_key: !secret darksky_api_key
+#  mode: hourly
+#  units: us
 
-- platform: nws
-  api_key: !secret gmail
-  mode: daynight
-#  station:
+#- platform: nws
+#  api_key: !secret gmail
+#  mode: daynight
+##  station:

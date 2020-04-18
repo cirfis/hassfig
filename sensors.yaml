@@ -1,9 +1,5 @@
 - platform: moon
 
-- platform: htu21d
-  name: growpi_htu21d
-  i2c_bus: 1
-  
 #- platform: sonarr
 #  api_key: !secret sonarr_api_key
 #  host: !secret swarm_IP
@@ -47,3 +43,7 @@
 ##    - mediumClouds
 ##    - highClouds
 ##    - dewpointTemperature
+
+#- platform: htu21d
+#  name: Growpi
+#  i2c_bus: 1

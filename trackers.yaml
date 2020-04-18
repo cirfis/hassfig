@@ -1,0 +1,23 @@
+- platform: luci
+  host: !secret firewrt_lan_IP
+  username: !secret firewrt_username
+  password: !secret firewrt_password
+
+- platform: tomato 
+  http_id: !secret http_id
+  host: !secret scappy_IP
+  username: !secret scappy_username
+  password: !secret scappy_password
+
+- platform: ddwrt
+  host: !secret sellers_IP
+  username: !secret sellers_username
+  password: !secret sellers_password
+  wireless_only: true
+
+#- platform: tile
+#  username: !secret tile_username
+#  password: !secret tile_password
+
+- platform: bluetooth_tracker
+  request_rssi: true
