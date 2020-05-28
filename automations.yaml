@@ -5,7 +5,7 @@
   action:
     service: frontend.set_theme
     data:
-      name: reeder_dark
+      name: slate
 
 # Sets input_datetime to '05:30' when an input_boolean is turned on.
 #- alias: '5:30 Alarm Time'

@@ -24,7 +24,7 @@
     - !secret zpid2
     - !secret zpid3
     - !secret zpid4
-    - !secret zpid5
+#    - !secret zpid5
 
 #- platform: yr
 #  name: "YR.no Forecast"
@@ -43,7 +43,3 @@
 ##    - mediumClouds
 ##    - highClouds
 ##    - dewpointTemperature
-
-#- platform: htu21d
-#  name: Growpi
-#  i2c_bus: 1
