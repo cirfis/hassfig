@@ -1,17 +1,19 @@
 # Example .gitignore file for your config dir.
 # An * ensures that everything will be ignored.
 *
+# But descend into directories
+!*/
 
 # You can whitelist files/folders with !, these will not be ignored.
 !*.yaml
 !.gitignore
 !*.md
-!custom_components/*
-!tts/*
-!www/*
-!themes/*
-!repositories/*
-!node-red/*
+!/custom_components/**
+!/tts/**
+!/www/**
+!/themes/**
+!/repositories/**
+!/node-red/**
 
 # Ignore folders.
 .storage
