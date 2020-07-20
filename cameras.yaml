@@ -2,15 +2,25 @@
 #  api_key: !secret unsplash_access_key
 
 - platform: generic
-  name: "Grow Room Cam"
-  still_image_url: http://gropi.cirfis.org/picture/1/current/
-  stream_source: http://gropi.cirfis.org/picture/1/frame/
+  name: "GrowCam Shelving"
+  still_image_url: http://gropi_sheldon.cirfis.org/picture/1/current/
+  stream_source: http://gropi_sheldon.cirfis.org/picture/1/frame/
+#  stream_source: http://gropi:8080
   verify_ssl: false
-  framerate: 12
+  framerate: 5
+  
+- platform: generic
+  name: "GrowCam Ceiling"
+  still_image_url: http://gropi_cecilia.cirfis.org/picture/1/current/
+  stream_source: http://gropi_cecilia.cirfis.org/picture/1/frame/
+#  stream_source: http://gropi:8080
+  verify_ssl: false
+  framerate: 5
   
 - platform: generic
   name: "Tent Cam"
-  still_image_url: http://tenti.cirfis.org/picture/2/current/
-  stream_source: http://tenti.cirfis.org/picture/2/frame/
+  still_image_url: http://tenti.cirfis.org/picture/1/current/
+  stream_source: http://tenti.cirfis.org/picture/1/frame/
+#  stream_source: http://tenti:8080
   verify_ssl: false
   framerate: 8
