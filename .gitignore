@@ -14,13 +14,11 @@
 !/themes/**
 !/repositories/**
 !/node-red/**
-!/.storage/**
 
 # Ignore folders.
 .storage
 .cloud
 .google.token
-.storage/auth*
 
 # Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
 ip_bans.yaml
@@ -28,3 +26,4 @@ secrets.yaml
 known_devices.yaml
 ssh_key
 html5_push_registrations.conf
+.storage/auth*
