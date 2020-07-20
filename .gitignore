@@ -16,7 +16,6 @@
 !/node-red/**
 
 # Ignore folders.
-.storage
 .cloud
 .google.token
 

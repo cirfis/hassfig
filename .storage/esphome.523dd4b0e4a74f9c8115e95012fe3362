@@ -1,0 +1,87 @@
+{
+    "data": {
+        "binary_sensor": [
+            {
+                "device_class": "garage_door",
+                "is_status_binary_sensor": false,
+                "key": 1402501725,
+                "name": "Garage Door",
+                "object_id": "garage_door",
+                "unique_id": "garagebinary_sensorgarage_door"
+            }
+        ],
+        "device_info": {
+            "compilation_time": "Jun 10 2020, 01:00:10",
+            "esphome_version": "1.14.4",
+            "has_deep_sleep": false,
+            "mac_address": "84:F3:EB:1A:BA:33",
+            "model": "PLATFORMIO_NODEMCUV2",
+            "name": "garage",
+            "uses_password": false
+        },
+        "sensor": [
+            {
+                "accuracy_decimals": 0,
+                "force_update": false,
+                "icon": "mdi:wifi",
+                "key": 2281838442,
+                "name": "WiFi Signal Sensor",
+                "object_id": "wifi_signal_sensor",
+                "unique_id": "84f3eb1aba33-wifisignal",
+                "unit_of_measurement": "dB"
+            },
+            {
+                "accuracy_decimals": 1,
+                "force_update": false,
+                "icon": "mdi:thermometer",
+                "key": 860520201,
+                "name": "Garage Temperature",
+                "object_id": "garage_temperature",
+                "unique_id": "garagesensorgarage_temperature",
+                "unit_of_measurement": "\u00b0C"
+            },
+            {
+                "accuracy_decimals": 1,
+                "force_update": false,
+                "icon": "mdi:gauge",
+                "key": 2458484836,
+                "name": "Garage Pressure",
+                "object_id": "garage_pressure",
+                "unique_id": "garagesensorgarage_pressure",
+                "unit_of_measurement": "hPa"
+            },
+            {
+                "accuracy_decimals": 1,
+                "force_update": false,
+                "icon": "mdi:water-percent",
+                "key": 1815995886,
+                "name": "Garage Humidity",
+                "object_id": "garage_humidity",
+                "unique_id": "garagesensorgarage_humidity",
+                "unit_of_measurement": "%"
+            }
+        ],
+        "services": [],
+        "switch": [
+            {
+                "assumed_state": false,
+                "icon": "mdi:garage",
+                "key": 1402501725,
+                "name": "Garage Door",
+                "object_id": "garage_door",
+                "unique_id": "garageswitchgarage_door"
+            },
+            {
+                "assumed_state": false,
+                "icon": "mdi:restart",
+                "key": 595118771,
+                "name": "Garage Door REBOOT",
+                "object_id": "garage_door_reboot",
+                "unique_id": "garageswitchgarage_door_reboot"
+            }
+        ],
+        "text_sensor": []
+    },
+    "key": "esphome.523dd4b0e4a74f9c8115e95012fe3362",
+    "version": 1
+}

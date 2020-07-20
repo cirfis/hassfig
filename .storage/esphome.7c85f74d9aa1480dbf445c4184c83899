@@ -1,0 +1,69 @@
+{
+    "data": {
+        "device_info": {
+            "compilation_time": "Jun  9 2020, 20:09:29",
+            "esphome_version": "1.14.4",
+            "has_deep_sleep": false,
+            "mac_address": "84:0D:8E:B0:FE:16",
+            "model": "PLATFORMIO_NODEMCUV2",
+            "name": "tent",
+            "uses_password": false
+        },
+        "sensor": [
+            {
+                "accuracy_decimals": 1,
+                "force_update": false,
+                "icon": "mdi:thermometer",
+                "key": 3972293042,
+                "name": "HTU21d Tent Temperature",
+                "object_id": "htu21d_tent_temperature",
+                "unique_id": "tentsensorhtu21d_tent_temperature",
+                "unit_of_measurement": "\u00b0C"
+            },
+            {
+                "accuracy_decimals": 1,
+                "force_update": false,
+                "icon": "mdi:thermometer",
+                "key": 3458373662,
+                "name": "BME280 Tent Temperature",
+                "object_id": "bme280_tent_temperature",
+                "unique_id": "tentsensorbme280_tent_temperature",
+                "unit_of_measurement": "\u00b0C"
+            },
+            {
+                "accuracy_decimals": 1,
+                "force_update": false,
+                "icon": "mdi:water-percent",
+                "key": 4000374059,
+                "name": "HTU21d Tent Humidity",
+                "object_id": "htu21d_tent_humidity",
+                "unique_id": "tentsensorhtu21d_tent_humidity",
+                "unit_of_measurement": "%"
+            },
+            {
+                "accuracy_decimals": 1,
+                "force_update": false,
+                "icon": "mdi:gauge",
+                "key": 2291264057,
+                "name": "BME280 Tent Pressure",
+                "object_id": "bme280_tent_pressure",
+                "unique_id": "tentsensorbme280_tent_pressure",
+                "unit_of_measurement": "hPa"
+            },
+            {
+                "accuracy_decimals": 1,
+                "force_update": false,
+                "icon": "mdi:water-percent",
+                "key": 2646148375,
+                "name": "BME280 Tent Humidity",
+                "object_id": "bme280_tent_humidity",
+                "unique_id": "tentsensorbme280_tent_humidity",
+                "unit_of_measurement": "%"
+            }
+        ],
+        "services": [],
+        "text_sensor": []
+    },
+    "key": "esphome.7c85f74d9aa1480dbf445c4184c83899",
+    "version": 1
+}

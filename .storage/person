@@ -1,0 +1,14 @@
+{
+    "data": {
+        "items": [
+            {
+                "device_trackers": [],
+                "id": "luke_bauer",
+                "name": "Luke Bauer",
+                "user_id": "10f4af2d61cb45618b74967fcdcd16d8"
+            }
+        ]
+    },
+    "key": "person",
+    "version": 2
+}

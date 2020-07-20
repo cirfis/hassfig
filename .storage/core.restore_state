@@ -1,0 +1,45 @@
+{
+    "data": [
+        {
+            "last_seen": "2020-07-20T15:51:33.227193+00:00",
+            "state": {
+                "attributes": {
+                    "friendly_name": "Set theme at startup",
+                    "last_triggered": "2020-07-20T15:46:21.083977+00:00",
+                    "mode": "single"
+                },
+                "context": {
+                    "id": "7e557d06e006481f81812d660f326f1d",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "automation.set_theme_at_startup",
+                "last_changed": "2020-07-20T15:51:24.287097+00:00",
+                "last_updated": "2020-07-20T15:51:24.287097+00:00",
+                "state": "on"
+            }
+        },
+        {
+            "last_seen": "2020-07-20T13:04:28.002192+00:00",
+            "state": {
+                "attributes": {
+                    "editable": true,
+                    "friendly_name": "Luke Bauer",
+                    "id": "luke_bauer",
+                    "user_id": "504a158dc14c4d87af19ffb13875986a"
+                },
+                "context": {
+                    "id": "d623031b6fb4469b895dd19ad3041088",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "person.luke_bauer",
+                "last_changed": "2020-07-20T06:04:10.648034+00:00",
+                "last_updated": "2020-07-20T06:04:10.648034+00:00",
+                "state": "unknown"
+            }
+        }
+    ],
+    "key": "core.restore_state",
+    "version": 1
+}
