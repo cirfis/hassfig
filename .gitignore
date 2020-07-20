@@ -6,7 +6,12 @@
 !*.yaml
 !.gitignore
 !*.md
-
+!custom_components
+!tts
+!www
+!themes
+!repositories
+!node-red
 
 # Ignore folders.
 .storage
@@ -18,3 +23,4 @@ ip_bans.yaml
 secrets.yaml
 known_devices.yaml
 ssh_key
+html5_push_registrations.conf
