@@ -6,12 +6,12 @@
 !*.yaml
 !.gitignore
 !*.md
-!custom_components/
-!tts/
-!www/
-!themes/
-!repositories/
-!node-red/
+!custom_components/*
+!tts/*
+!www/*
+!themes/*
+!repositories/*
+!node-red/*
 
 # Ignore folders.
 .storage
