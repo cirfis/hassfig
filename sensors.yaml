@@ -1,5 +1,8 @@
 - platform: moon
 
+- platform: nws_alerts
+  zone_id: 'MIC049'
+
 #- platform: sonarr
 #  api_key: !secret sonarr_api_key
 #  host: !secret swarm_IP
@@ -17,9 +20,6 @@
 #    - 'time_utc'
     - 'beat'
 
-- platform: nws_alerts
-  zone_id: 'MIC049'
-  
 #- platform: zestimate
 #  api_key: !secret zillow_api_key
 #  zpid:
@@ -29,20 +29,23 @@
 #    - !secret zpid4
 #    - !secret zpid5
 
-- platform: yr
-  name: "YR.no Forecast"
-  forecast: 24
-  monitored_conditions:
-    - temperature
-#    - symbol
-    - precipitation
-#    - windSpeed
-#    - pressure
-    - windDirection
-    - humidity
-    - fog
-#    - cloudiness
-#    - lowClouds
-#    - mediumClouds
-#    - highClouds
-#    - dewpointTemperature
+#- platform: yr
+#  name: "YR.no Forecast"
+#  forecast: 24
+#  monitored_conditions:
+#    - temperature
+##    - symbol
+#    - precipitation
+##    - windSpeed
+##    - pressure
+#    - windDirection
+#    - humidity
+#    - fog
+##    - cloudiness
+##    - lowClouds
+##    - mediumClouds
+##    - highClouds
+##    - dewpointTemperature
+
+
+  

@@ -1,26 +1,42 @@
 #- platform: unsplash
 #  api_key: !secret unsplash_access_key
 
+
 - platform: generic
-  name: "GrowCam Shelving"
+  name: "GrowCam Ceiling"
+  still_image_url: http://gropi_cecilia.cirfis.org/picture/2/current/
+  stream_source: http://gropi_cecilia.cirfis.org/picture/2/frame/
+#  stream_source: http://gropi:8080
+  verify_ssl: false
+  framerate: 5
+  
+- platform: generic
+  name: "GrowCam PiCam"
+  still_image_url: http://gropi_cecilia.cirfis.org/picture/1/current/
+  stream_source: http://gropi_cecilia.cirfis.org/picture/1/frame/
+  verify_ssl: false
+  framerate: 3
+
+- platform: generic
+  name: "Tent WallCam"
   still_image_url: http://gropi_sheldon.cirfis.org/picture/1/current/
   stream_source: http://gropi_sheldon.cirfis.org/picture/1/frame/
 #  stream_source: http://gropi:8080
   verify_ssl: false
   framerate: 5
-  
+    
 - platform: generic
-  name: "GrowCam Ceiling"
-  still_image_url: http://gropi_cecilia.cirfis.org/picture/1/current/
-  stream_source: http://gropi_cecilia.cirfis.org/picture/1/frame/
-#  stream_source: http://gropi:8080
-  verify_ssl: false
-  framerate: 5
-  
-- platform: generic
-  name: "Tent Cam"
-  still_image_url: http://tenti.cirfis.org/picture/1/current/
-  stream_source: http://tenti.cirfis.org/picture/1/frame/
+  name: "Tent SkyCam"
+  still_image_url: http://gropi_sheldon.cirfis.org/picture/2/current/
+  stream_source: http://gropi_sheldon.cirfis.org/picture/2/frame/
 #  stream_source: http://tenti:8080
   verify_ssl: false
-  framerate: 8
+  framerate: 3
+  
+#- platform: generic
+#  name: "Pi TentCam"
+#  still_image_url: http://gropi_sheldon.cirfis.org/picture/3/current/
+#  stream_source: http://gropi_sheldon.cirfis.org/picture/3/frame/
+##  stream_source: http://tenti:8080
+#  verify_ssl: false
+#  framerate: 3

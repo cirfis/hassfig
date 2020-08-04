@@ -4,12 +4,6 @@
 #  api_key: !secret jellyfin_api_key
 #  auto_hide: true
 
-#- platform: spotify
-#  name: Spotify
-#  client_id: !secret spotify_client_id
-#  client_secret: !secret spotify_client_secret
-##  aliases:
-
 #- platform: vlc_telnet
 #  name: "munk VLC"
 #  host: !secret munk_IP
