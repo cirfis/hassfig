@@ -22,9 +22,9 @@ hacs:
 
 #browser_mod:
 
-spotify:
-  client_id: !secret spotify_client_id
-  client_secret: !secret spotify_client_secret
+#spotify:
+#  client_id: !secret spotify_client_id
+#  client_secret: !secret spotify_client_secret
 
 ssdp:
 updater:
@@ -41,12 +41,13 @@ history:
       - sensor.last_boot
       - sensor.date
 
+uilogs:
 logger:
   default: warn
   logs:
     homeassistant.components.device_tracker: debug
 
-uilogs:
+
 
 logbook:
   exclude:
@@ -113,9 +114,6 @@ influxdb:
 
 #device_sun_light_trigger:
 
-
-tts:
-  - platform: google_translate
 
 group: !include groups.yaml
 automation: !include automations.yaml

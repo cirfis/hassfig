@@ -3,38 +3,43 @@
 
 
 - platform: generic
-  name: "GrowCam Ceiling"
-  still_image_url: http://gropi_cecilia.cirfis.org/picture/2/current/
-  stream_source: http://gropi_cecilia.cirfis.org/picture/2/frame/
-#  stream_source: http://gropi:8080
+  name: "Grow ShelfCam"
+  still_image_url: http://10.50.1.82/picture/2/current/
+  stream_source: http://10.50.1.82:8082
+#  still_image_url: http://hassio:8123/api/hassio_ingress/cB868q-90Wdmm7LT-bBf410H_MLn9VuEzflSrTJbX10/picture/4/current/
+#  stream_source: http://hassio:8123/api/hassio_ingress/cB868q-90Wdmm7LT-bBf410H_MLn9VuEzflSrTJbX10/picture/4/frame/
   verify_ssl: false
-  framerate: 5
+  framerate: 6
   
 - platform: generic
-  name: "GrowCam PiCam"
-  still_image_url: http://gropi_cecilia.cirfis.org/picture/1/current/
-  stream_source: http://gropi_cecilia.cirfis.org/picture/1/frame/
+  name: "Grow JoistCam"
+  still_image_url: http://10.50.1.82/picture/1/current/
+  stream_source: http://10.50.1.82:8081
+#  still_image_url: http://hassio:8123/api/hassio_ingress/cB868q-90Wdmm7LT-bBf410H_MLn9VuEzflSrTJbX10/picture/3/current/
+#  stream_source: http://hassio:8123/api/hassio_ingress/cB868q-90Wdmm7LT-bBf410H_MLn9VuEzflSrTJbX10/picture/3/frame/
   verify_ssl: false
   framerate: 3
 
 - platform: generic
-  name: "Tent WallCam"
-  still_image_url: http://gropi_sheldon.cirfis.org/picture/1/current/
-  stream_source: http://gropi_sheldon.cirfis.org/picture/1/frame/
-#  stream_source: http://gropi:8080
+  name: "Tent PiCam"
+  still_image_url: http://10.50.1.81/picture/1/current/
+  stream_source: http://10.50.1.81:8081
+#  still_image_url: http://hassio:8123/api/hassio_ingress/cB868q-90Wdmm7LT-bBf410H_MLn9VuEzflSrTJbX10/picture/2/current/
+#  stream_source: http://hassio:8123/api/hassio_ingress/cB868q-90Wdmm7LT-bBf410H_MLn9VuEzflSrTJbX10/picture/2/frame/
   verify_ssl: false
-  framerate: 5
+  framerate: 3
     
 - platform: generic
   name: "Tent SkyCam"
-  still_image_url: http://gropi_sheldon.cirfis.org/picture/2/current/
-  stream_source: http://gropi_sheldon.cirfis.org/picture/2/frame/
-#  stream_source: http://tenti:8080
+  still_image_url: http://10.50.1.81/picture/2/current/
+  stream_source: http://10.50.1.81:8082
+#  still_image_url: http://hassio:8123/api/hassio_ingress/cB868q-90Wdmm7LT-bBf410H_MLn9VuEzflSrTJbX10/picture/1/current/
+#  stream_source: http://hassio:8123/api/hassio_ingress/cB868q-90Wdmm7LT-bBf410H_MLn9VuEzflSrTJbX10/picture/1/frame/
   verify_ssl: false
   framerate: 3
   
 #- platform: generic
-#  name: "Pi TentCam"
+#  name: "Tent PiCam"
 #  still_image_url: http://gropi_sheldon.cirfis.org/picture/3/current/
 #  stream_source: http://gropi_sheldon.cirfis.org/picture/3/frame/
 ##  stream_source: http://tenti:8080

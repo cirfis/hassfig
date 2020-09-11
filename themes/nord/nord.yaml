@@ -4,74 +4,76 @@
 #
 nord:
   # Color Setup
-  light-background-color: "#3b4252"
-  lighter-background-color: "#454c5f"
-  dark-background-color: "#2E3440"
-  card-background-color: "#4c566a"
-  foreground-color: "#eceff4"
-  # accent-color: "#8fbcbb" # Nord7 - calm blue
-  # accent-color: "#88c0d0" # Nord8 - bright blue
-  accent-color: "#81a1c1"  # Nord9  - muted blue (default)
-  # accent-color: "#5e81ac" # Nord10 - blue
-  # accent-color: "#bf616a" # Nord11 - red
-  # accent-color: "#d08770" # Nord12 - orange
-  # accent-color: "#ebcb8b" # Nord13 - yellow
-  # accent-color: "#a3be8c" # Nord14 - green
-  # accent-color: "#b48ead" # Nord15 - purple
+  nord0: "#2E3440"  # Nord0 - Polar Night
+  nord1: "#3b4252"  # Nord1 - Brighter Polar Night
+  nord2: "#434c5e"  # Nord2 - Even Brighter Polar Night
+  nord3: "#4c566a"  # Nord3 - Brightest Polar Night
+  nord4: "#d8dee9"  # Nord4 - Snow Storm
+  nord5: "#e5e9f0"  # Nord5 - Snow Storm Origin
+  nord6: "#eceff4"  # Nord6 - Brightest Snow Storm
+  nord7: "#8fbcbb"  # Nord7 - calm blue
+  nord8: "#88c0d0"  # Nord8 - bright blue
+  nord9: "#81a1c1"  # Nord9  - muted blue (default)
+  nord10: "#5e81ac"  # Nord10 - blue
+  nord11: "#bf616a"  # Nord11 - red
+  nord12: "#d08770"  # Nord12 - orange
+  nord13: "#ebcb8b"  # Nord13 - yellow
+  nord14: "#a3be8c"  # Nord14 - green
+  nord15: "#b48ead"  # Nord15 - purple
 
-  primary-color: "var(--accent-color)"
-  light-primary-color: "var(--dark-background-color)"
-  primary-background-color: "var(--dark-background-color)"
-  secondary-background-color: "var(--dark-background-color)"
-  divider-color: "var(--dark-background-color)"
-  paper-grey-50: "var(--accent-color)"
-  paper-grey-200: "var(--dark-background-color)"
-  primary-text-color: "var(--foreground-color)"
-  secondary-text-color: "var(--foreground-color)"
-  disabled-text-color: "var(--light-background-color)"
-  light-disabled-text-color: "var(--lighter-background-color)"
-  dark-primary-color: "var(--accent-color)"
+  ha-card-border-radius: 0px
 
-  # Interface
-  ha-card-border-radius: "0px"
-  primary-font-family: "Roboto Condensed, Roboto, system-ui"
+  primary-color: "var(--nord9)"
+  light-primary-color: "var(--nord0)"
+  graph-color: "var(--primary-color)"
+  primary-background-color: "var(--nord0)"
+  secondary-background-color: "var(--nord3)"
+  divider-color: "var(--nord3)"
+  disabled-color: grey
 
-  # Paper
-  paper-card-background-color: "var(--card-background-color)"
-  paper-card-header-color: "var(--accent-color)"
-  paper-listbox-background-color: "var(--light-background-color)"
-  paper-listbox-color: "var(--accent-color)"
-  paper-item-selected_-_background-color: "var(--dark-background-color)"
-  paper-item-icon-color: "var(--foreground-color)"
-  paper-item-icon_-_color: "var(--foreground-color)"
-  paper-item-icon-active-color: "var(--accent-color)"
+  primary-text-color: "var(--nord6)"
+  secondary-text-color: "var(--primary-color)"
+  text-primary-color: "var(--primary-text-color)"
+  disabled-text-color: "var(--disabled-color)"
 
-  # Label-badge
-  label-badge-text-color: "var(--foreground-color)"
-  label-badge-background-color: "var(--card-background-color)"
-  label-badge-red: "var(--accent-color)"
+  sidebar-icon-color: "var(--primary-text-color)"
+  sidebar-text-color: "var(--primary-text-color)"
+  sidebar-background-color: "var(--nord2)"
+  sidebar-selected-background-color: "var(--primary-color)"
+  sidebar-selected-icon-color: "var(--primary-color)"
+  sidebar-selected-text-color: "var(--sidebar-selected-icon-color)"
 
-  # Slider
-  paper-slider-active-color: "var(--accent-color)"
-  paper-slider-secondary-color: "var(--accent-color)"
-  paper-slider-knob-color: "var(--accent-color)"
-  paper-slider-knob-start-color: "var(--accent-color)"
-  paper-slider-pin-color: "var(--accent-color)"
+  state-icon-color: "var(--primary-text-color)"
+  state-icon-active-color: "var(--primary-color)"
+  state-icon-unavailable-color: "var(--nord11)"
 
-  # Toggle
-  paper-toggle-button-unchecked-bar-color: "var(--accent-color)"
-  paper-toggle-button-unchecked-button-color: "var(--accent-color)"
-  paper-toggle-button-unchecked-ink-color: "var(--accent-color)"
-  paper-toggle-button-checked-bar-color: "var(--accent-color)"
-  paper-toggle-button-checked-button-color: "var(--accent-color)"
+  paper-slider-knob-color: var(--primary-color)
+  paper-slider-knob-start-color: var(--paper-slider-knob-color)
+  paper-slider-pin-color: var(--paper-slider-knob-color)
+  paper-slider-active-color: var(--paper-slider-knob-color)
+  paper-slider-secondary-color: var(--light-primary-color)
+  label-badge-background-color: var(--divider-color)
+  label-badge-text-color: var(--primary-text-color)
+  label-badge-red: var(--nord11)
 
-  # Switch
-  switch-unchecked-track-color: "var(--disabled-text-color)"
-  switch-unchecked-color: "var(--light-disabled-text-color)"
-  switch-checked-track-color: "var(--accent-color)"
-  switch-checked-color: "var(--accent-color)"
+  paper-listbox-background-color: var(--primary-background-color)
 
-  # Font Settings
+  paper-toggle-button-checked-button-color: var(--primary-color)
+  paper-toggle-button-checked-bar-color: var(--primary-color)
+  paper-toggle-button-unchecked-button-color: var(--nord4)
+  paper-toggle-button-unchecked-bar-color: var(--nord4)
+
+  switch-checked-color: var(--paper-toggle-button-checked-button-color)
+  switch-unchecked-button-color: var(--paper-toggle-button-unchecked-button-color)
+  switch-unchecked-color: var(--paper-toggle-button-unchecked-bar-color)
+  switch-unchecked-track-color: var(--paper-toggle-button-unchecked-bar-color)
+
+  table-row-background-color: var(--divider-color)
+  table-row-alternative-background-color: var(--secondary-background-color)
+  card-background-color: var(--secondary-background-color)
+
+  app-header-background-color: var(--primary-color)
+
   paper-font-common-base_-_font-family: "var(--primary-font-family)"
   paper-font-common-code_-_font-family: "var(--primary-font-family)"
   paper-font-body1_-_font-family: "var(--primary-font-family)"
@@ -79,9 +81,4 @@ nord:
   paper-font-headline_-_font-family: "var(--primary-font-family)"
   paper-font-caption_-_font-family: "var(--primary-font-family)"
   paper-font-title_-_font-family: "var(--primary-font-family)"
-  ha-card-header-font-family: "var(--primary-font-family)"
-  ha-card-header-color: "var(--foreground-color)"
-
-  # Other
-  sidebar-icon-color: "var(--foreground-color)"
-  sidebar-background-color: "var(--light-background-color)"
+  paper-item-icon-active-color: "var(--primary-color)"

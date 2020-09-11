@@ -1,4 +1,4 @@
-foldingathome:
-    title: Folding@home
-    icon: mdi:bacteria-outline
-    url: http://hassio.cirfis.org:7396
+#foldingathome:
+#    title: Folding@home
+#    icon: mdi:bacteria-outline
+#    url: http://hassio.cirfis.org:7396
