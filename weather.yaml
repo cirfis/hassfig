@@ -1,6 +1,4 @@
-- platform: openweathermap
-  api_key: !secret openweathermap_api_key
-  mode: freedaily
+
 
 - platform: darksky
   api_key: !secret darksky_api_key
@@ -12,3 +10,7 @@
 #  api_key: !secret gmail
 #  mode: daynight
 #  station:
+#
+#- platform: openweathermap
+#  api_key: !secret openweathermap_api_key
+#  mode: freedaily

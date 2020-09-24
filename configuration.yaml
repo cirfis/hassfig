@@ -89,8 +89,8 @@ influxdb:
   tags_attributes:
     - friendly_name
 
-#prometheus:
-#  namespace: hassio
+prometheus:
+  namespace: hassio
 
 #telegram_bot:
 #  platform: broadcast
