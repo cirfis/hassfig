@@ -12,7 +12,7 @@ exclude:
 - deps/
 - known_devices.yaml
 - tts/
-- 243ffc37_git-exporter.yaml
+- '*_git-exporter.yaml'
 export:
   addons: true
   esphome: false
@@ -20,7 +20,7 @@ export:
   node_red: true
 repository:
   commit_message: Home Assistant Git Exporter
-  password: f482664434344fa952299d5bdc4c9b14b49a25e3
+  password: f6d918df2d46521c7659e7c9ef5ba3a50652329f
   pull_before_push: true
   url: https://github.com/cirfis/hassfig.git
   username: cirfis
