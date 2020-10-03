@@ -20,7 +20,7 @@ export:
   node_red: true
 repository:
   commit_message: Home Assistant Git Exporter
-  password: f6d918df2d46521c7659e7c9ef5ba3a50652329f
+  password: 724414fc83250f3f8c79772e2f718f60743de8a0
   pull_before_push: true
   url: https://github.com/cirfis/hassfig.git
   username: cirfis
