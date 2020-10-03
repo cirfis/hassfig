@@ -1,0 +1,26 @@
+check:
+  check_for_ips: false
+  check_for_secrets: false
+  enabled: false
+dry_run: false
+exclude:
+- '*.db'
+- '*.log'
+- __pycache__
+- ._*
+- .DS_Store
+- deps/
+- known_devices.yaml
+- tts/
+- 243ffc37_git-exporter.yaml
+export:
+  addons: true
+  esphome: false
+  lovelace: true
+  node_red: true
+repository:
+  commit_message: Home Assistant Git Exporter
+  password: mL4HSOhJp2te
+  pull_before_push: true
+  url: https://github.com/cirfis/hassfig.git
+  username: cirfis

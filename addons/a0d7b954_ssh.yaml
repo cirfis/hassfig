@@ -1,0 +1,17 @@
+init_commands:
+- ls -la
+packages:
+- build-base
+share_sessions: true
+ssh:
+  allow_agent_forwarding: true
+  allow_remote_port_forwarding: false
+  allow_tcp_forwarding: false
+  authorized_keys:
+  - ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAD8gG/zh52NU2VOSp97kBZ7jXUAi0zIBviual4P1UsZN4orSZRp16w7jk8AS3UA2w0rc1oPG2z/zvQz/XG1obawyQDuTBX7q39GZt7TPkmWilsX6aqEPwWy7u3pAzR6E17vzmgJJOxh3vL52PrhMvZYO6hxI8bGt9/qBgynmriixhgIvw==
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDfFUFoRRewY/M+2iQvjphMyNTb7NK1J4nHnoi/uzK7GOkBOrPE9TsAHYO7soWlv0oAPqpa8yEsjk/EQtWL1K86yCeOGT3W7P/kKEr59uKUuQld283Mkg/g8IzApZEeGaX1Qd2niQXKATRniIhWXtmyxHn4iK+1es4qwzYe6HOf+ZP26sujm9loF1CdeufahTfUg8DP7Bo80pYvWPcHK2d0MSU/ZcYe0lN7iloFYrarO9SF+BgWE+2TMM7nMT4OTUubDA+sYXD7xj+4WJl313qH4SL7UwUGq6lqeWQB4vt6XmLDSIYqgNXS+YR67Yp4mbdcF+hrVuylJZlT8wlfLcfImfqPu0bcctQIF5fVlgFF7g9nBqrB4J4g4e14JnYHyeFGFSVAFwGG2x7zipDwyRjGo1Vgq8scEh0lUNno+TMLrEP/xXPTJlF7V1IlaJVJlmOdIBiOCgyS7+hSYE11fifmsqMT8bZKmffCEAzBRs2ZUGyWyMfzh7E1m84M9DaZzOLB29FN59EYZVsFfVspaOQwOmpxP8oG2lC+PWr9Q3++6LZmG0ixDBjgmDjR1VNCO/iRf0J4jsmfGhBR+gxrpxd/8DdEbGgfi2TrxPxMnw4vN3gYfisWxYSA4MneFnT2ZZ9YdrgcSW8xhGC2Or2dJgMQi2ieu/V5FNrcTbQ3cPY79Q==
+  compatibility_mode: false
+  password: ''
+  sftp: false
+  username: cirfis
+zsh: true

@@ -1,0 +1,5 @@
+api_token: qGAXo6GqNzbR4VLCs63n6g56qB2IS-HWR6pk4wwQ
+domain: ourhouse.services
+log_level: debug
+record: '@'
+retry_interval: 700

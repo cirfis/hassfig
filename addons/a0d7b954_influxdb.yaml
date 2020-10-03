@@ -1,0 +1,7 @@
+auth: false
+certfile: fullchain.pem
+envvars: []
+keyfile: privkey.pem
+leave_front_door_open: true
+reporting: false
+ssl: false

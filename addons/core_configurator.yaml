@@ -1,0 +1,10 @@
+dirsfirst: true
+enforce_basepath: false
+ignore_pattern:
+- __pycache__
+- .cloud
+- .storage
+- deps
+ssh_keys:
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCWxDOJJk+YH/qUe6QIIt5Jwo5qH43Co6MwHGIrl2KG3oNtMtbApIqBw0UfrdilPMBwhcofg3cH7tyMttAD/rmsXtnm1EKi1PDty2cFQL99mQ+1Q4gpHGd6I48pCFnLlr++5lBFt/vtHNyaLu2nKiRbY9qNW32Y93vAHK7x+PohDThL8oCXmDgNd9fypJyG7YICNUYEY47Xi1+SH3q9ypB175jXrK2cCpL06zSTeVUn4p8iF01b/CxFWWHOAmoFKmUhF9f6hgJ/8p8sea4bWQPjVPX5y/HUWCHUsJKwBaytfBViOfzsQjc3kdrylBzx29QxEp41ixk76isZqrX7QGkch0IPTlA4cJC1JfEZOe0s2Eex5hZw+tIaDnhMoS3KO2VAMqyX5OKk/jRbi9ElZAeHsMjS+94qUg/TCxrwq9CfuS/+VDVmEDW49d0J62ptKGH5Rd7ODJhINhP7uyG1IvyHS7ZmZfiAZqwxSoPWcr4eOSu364qHSmpRFgRzuPB6d1U=
+  cirfis

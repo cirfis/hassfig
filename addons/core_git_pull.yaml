@@ -1,0 +1,16 @@
+auto_restart: false
+deployment_key: []
+deployment_key_protocol: rsa
+deployment_password: mL4HSOhJp2te
+deployment_user: cirfis@gmail.com
+git_branch: master
+git_command: pull
+git_prune: false
+git_remote: origin
+repeat:
+  active: false
+  interval: 300
+repository: https://github.com/cirfis/hassfig.git
+restart_ignore:
+- ui-lovelace.yaml
+- .gitignore

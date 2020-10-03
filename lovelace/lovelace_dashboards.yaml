@@ -1,0 +1,8 @@
+items:
+- icon: fas:seedling
+  id: lovelace_grow
+  mode: storage
+  require_admin: false
+  show_in_sidebar: true
+  title: Grow
+  url_path: lovelace-grow

@@ -1,0 +1,22 @@
+items:
+- id: 8ac816a90b834c34a277d45112dbb2af
+  type: module
+  url: /hacsfiles/favicon-counter/favicon-counter.js
+- id: 363661fa33af4b538e71b55f78ffb353
+  type: module
+  url: /hacsfiles/custom-sidebar/custom-sidebar.js
+- id: 59252139d8f6450183f6353a0d030b36
+  type: module
+  url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+- id: 41b273ba3e4d4f62866ebd95ee10c48d
+  type: module
+  url: /hacsfiles/custom-header/custom-header.js
+- id: d5bdacd30a2243f5b10d2e67ca703839
+  type: module
+  url: /hacsfiles/lovelace-card-tools/card-tools.js
+- id: b4d7e3aa1d2d4aa4942a4a99b3fd876a
+  type: module
+  url: /hacsfiles/upcoming-media-card/upcoming-media-card.js
+- id: 0c377e8510c24c60bde3994e9f1b42c6
+  type: module
+  url: /hacsfiles/lovelace-canary/canary.js

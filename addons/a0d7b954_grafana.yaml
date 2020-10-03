@@ -1,0 +1,72 @@
+certfile: fullchain.pem
+env_vars:
+- name: GF_DEFAULT_INSTANCE_NAME
+  value: Hassio
+- name: GF_SERVER_DOMAIN
+  value: cirfis.org
+- name: GF_DATABASE_TYPE
+  value: postgres
+- name: GF_DATABASE_HOST
+  value: 10.0.0.150
+- name: GF_DATABASE_NAME
+  value: grafana
+- name: GF_DATABASE_USER
+  value: cirfis
+- name: GF_DATABASE_PASSWORD
+  value: cirfis
+- name: GF_DATABASE_SSL_MODE
+  value: disable
+- name: GF_REMOTE_CACHE_TYPE
+  value: redis
+- name: GF_REMOTE_CACHE_CONNSTR
+  value: addr=Tavolo.cirfis.org:6379,db=1,ssl=false
+- name: GF_SECURITY_ADMIN_USER
+  value: cirfis
+- name: GF_SECURITY_ADMIN_PASSWORD
+  value: ''
+- name: GF_SECURITY_ALLOW_EMBEDDING
+  value: 'true'
+- name: GF_EXTERNAL_IMAGE_STORAGE_PROVIDER
+  value: local
+- name: GF_AUTH_ANONYMOUS_ENABLED
+  value: 'true'
+- name: GF_AUTH_ANONYMOUS_ORG_ROLE
+  value: Admin
+- name: GF_AUTH_GOOGLE_ENABLED
+  value: 'false'
+- name: GF_AUTH_GOOGLE_CLIENT_ID
+  value: 352895537273-uq74m312vrfqh0lonbq2rgsfqohknrh1.apps.googleusercontent.com
+- name: GF_AUTH_GOOGLE_CLIENT_SECRET
+  value: ypozJtn_rycA5EdQAyLZCIen
+- name: GF_AUTH_GOOGLE_ALLOW_SIGN_UP
+  value: 'true'
+- name: GF_SERVER_ENABLE_GZIP
+  value: 'true'
+grafana_ingress_user: cirfis
+keyfile: privkey.pem
+plugins:
+- grafana-piechart-panel
+- magnesium-wordcloud-panel
+- cloudflare-app
+- andig-darksky-datasource
+- jdbranham-diagram-panel
+- mtanda-google-calendar-datasource
+- mtanda-histogram-panel
+- pierosavi-imageit-panel
+- simpod-json-datasource
+- michaeldmoore-multistat-panel
+- ntop-ntopng-datasource
+- fatcloud-windrose-panel
+- marcuscalidus-svg-panel
+- fetzerch-sunandmoon-datasource
+- mxswat-separator-panel
+- camptocamp-prometheus-alertmanager-datasource
+- grafana-polystat-panel
+- corpglory-progresslist-panel
+- natel-plotly-panel
+- grafana-simple-json-datasource
+- blackmirror1-statusbygroup-panel
+- btplc-status-dot-panel
+- agenty-flowcharting-panel
+- grafana-clock-panel
+ssl: false

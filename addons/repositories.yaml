@@ -1,0 +1,12 @@
+Home Assistant Community Add-ons:
+  maintainer: Franck Nijhof <frenck@addons.community>
+  slug: a0d7b954
+  source: https://github.com/hassio-addons/repository
+P0L0's Custom Add-ons:
+  maintainer: P0L0
+  slug: 8a3a5726
+  source: https://gitlab.com/_p0l0_/hassio-addons
+Poeschl Home Assistant Add-ons:
+  maintainer: Poeschl <Poeschl@users.noreply.github.com>
+  slug: 243ffc37
+  source: https://github.com/Poeschl/Hassio-Addons

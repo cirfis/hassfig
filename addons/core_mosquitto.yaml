@@ -1,0 +1,8 @@
+anonymous: true
+certfile: fullchain.pem
+customize:
+  active: true
+  folder: mosquitto
+keyfile: privkey.pem
+logins: []
+require_certificate: false
