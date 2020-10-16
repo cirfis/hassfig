@@ -91,26 +91,26 @@ config:
         - entity: sensor.bme280_grow_room_temperature
         - entity: sensor.htu21d_tent_temperature
         - entity: sensor.bme280_tent_temperature
-        hours_to_show: 12
+        hours_to_show: 10
         refresh_interval: 0
-        title: Grow Temperatures Past 12 Hours
+        title: Grow Temperatures Past 10 Hours
         type: history-graph
       - cards:
         - entity: sensor.hdc1080_grow_room_temperature
-          max: 83
-          min: 70
+          max: 85
+          min: 55
           type: gauge
         - entity: sensor.bme280_grow_room_temperature
-          max: 83
-          min: 70
+          max: 85
+          min: 55
           type: gauge
         - entity: sensor.htu21d_tent_temperature
-          max: 83
-          min: 70
+          max: 85
+          min: 55
           type: gauge
         - entity: sensor.bme280_tent_temperature
-          max: 83
-          min: 70
+          max: 85
+          min: 55
           type: gauge
         type: horizontal-stack
       - entities:
@@ -161,51 +161,54 @@ config:
         - entity: sensor.hdc1080_grow_room_humidity
         - entity: sensor.htu21d_tent_humidity
         - entity: sensor.bme280_tent_humidity
-        hours_to_show: 96
-        refresh_interval: 0
-        title: 96 Hrs
-        type: history-graph
-      - entities:
-        - entity: sensor.bme280_grow_room_temperature
-        - entity: sensor.hdc1080_grow_room_temperature
-        - entity: sensor.bme280_tent_temperature
-        - entity: sensor.htu21d_tent_temperature
-        - entity: sensor.bme280_grow_room_humidity
-        - entity: sensor.hdc1080_grow_room_humidity
-        - entity: sensor.bme280_tent_humidity
-        - entity: sensor.htu21d_tent_humidity
-        hours_to_show: 72
-        refresh_interval: 0
-        title: 72 Hrs
-        type: history-graph
-      - entities:
-        - entity: sensor.bme280_grow_room_temperature
-        - entity: sensor.hdc1080_grow_room_temperature
-        - entity: sensor.bme280_tent_temperature
-        - entity: sensor.htu21d_tent_temperature
-        - entity: sensor.bme280_grow_room_humidity
-        - entity: sensor.hdc1080_grow_room_humidity
-        - entity: sensor.bme280_tent_humidity
-        - entity: sensor.htu21d_tent_humidity
         hours_to_show: 48
         refresh_interval: 0
-        title: 48 Hrs
-        type: history-graph
-      - entities:
-        - entity: sensor.bme280_grow_room_temperature
-        - entity: sensor.hdc1080_grow_room_temperature
-        - entity: sensor.bme280_tent_temperature
-        - entity: sensor.htu21d_tent_temperature
-        - entity: sensor.bme280_grow_room_humidity
-        - entity: sensor.hdc1080_grow_room_humidity
-        - entity: sensor.bme280_tent_humidity
-        - entity: sensor.htu21d_tent_humidity
-        hours_to_show: 24
-        refresh_interval: 0
-        title: 24 Hrs
+        title: Recent History
         type: history-graph
       type: vertical-stack
     icon: mdi:chart-line
     panel: true
-    path: history
-    title: History
+    path: history-rec
+    title: Recent History
+  - badges: []
+    cards:
+    - cards:
+      - entities:
+        - entity: sensor.bme280_grow_room_temperature
+        - entity: sensor.hdc1080_grow_room_temperature
+        - entity: sensor.bme280_tent_temperature
+        - entity: sensor.htu21d_tent_temperature
+        - entity: sensor.bme280_grow_room_humidity
+        - entity: sensor.hdc1080_grow_room_humidity
+        - entity: sensor.htu21d_tent_humidity
+        - entity: sensor.bme280_tent_humidity
+        hours_to_show: 168
+        refresh_interval: 0
+        title: Medium History
+        type: history-graph
+      type: vertical-stack
+    icon: fas:chart-line
+    panel: true
+    path: history-med
+    title: Medium History
+  - badges: []
+    cards:
+    - cards:
+      - entities:
+        - entity: sensor.bme280_grow_room_temperature
+        - entity: sensor.hdc1080_grow_room_temperature
+        - entity: sensor.bme280_tent_temperature
+        - entity: sensor.htu21d_tent_temperature
+        - entity: sensor.bme280_grow_room_humidity
+        - entity: sensor.hdc1080_grow_room_humidity
+        - entity: sensor.htu21d_tent_humidity
+        - entity: sensor.bme280_tent_humidity
+        hours_to_show: 504
+        refresh_interval: 0
+        title: Long History
+        type: history-graph
+      type: vertical-stack
+    icon: fas:chart-area
+    panel: true
+    path: history-long
+    title: Long History
