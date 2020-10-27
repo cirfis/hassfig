@@ -79,13 +79,13 @@ discovery:
 #    - dlna_dmr
 
 influxdb:
-  host: a0d7b954-influxdb
-  port: 8086
+  host: Teneo.cirfis.org
+  port: 9090
   database: homeassistant
-  username: homeassistant
+  username: ""
   password: ""
   default_measurement: state  
-  max_retries: 5
+  max_retries: 8
   tags_attributes:
     - friendly_name
 
