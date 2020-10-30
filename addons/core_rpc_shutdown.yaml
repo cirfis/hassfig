@@ -1,0 +1,7 @@
+computers:
+- address: 192.168.0.1
+  alias: test-pc
+  credentials: user%password
+  delay: 0
+  message: Home Assistant is shutting down this PC. This cannot be canceled. Please
+    save your work!

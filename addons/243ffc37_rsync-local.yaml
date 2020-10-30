@@ -1,0 +1,4 @@
+external_device: ''
+external_folder: backup
+folders:
+- /config

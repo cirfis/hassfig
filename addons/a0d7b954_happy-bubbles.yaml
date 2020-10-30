@@ -1,0 +1,8 @@
+certfile: fullchain.pem
+keyfile: privkey.pem
+mqtt_client_id: happy_bubbles
+mqtt_host: homeassistant
+mqtt_password: ''
+mqtt_port: 1883
+mqtt_username: ''
+ssl: true

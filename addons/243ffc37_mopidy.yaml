@@ -1,0 +1,4 @@
+local_scan: true
+options:
+- name: local/media_dir
+  value: /share/mopidy/media

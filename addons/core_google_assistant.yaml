@@ -1,0 +1,6 @@
+client_secrets: google_assistant.json
+feedback:
+  enable: false
+  volume: 80
+model_id: null
+project_id: null

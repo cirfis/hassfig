@@ -1,0 +1,9 @@
+aliases: []
+domains:
+- null
+lets_encrypt:
+  accept_terms: false
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+seconds: 300
+token: null

@@ -1,0 +1,20 @@
+mapColors:
+  floor: '#0076ff'
+  obstacle_strong: '#52aeff'
+  obstacle_weak: '#6699ff'
+  path: '#ffffff'
+mapSettings:
+  drawCharger: true
+  drawPath: true
+  drawRobot: true
+  rotate: 0
+  scale: 4
+mqtt:
+  autoconfPrefix: homeassistant
+  broker_url: mqtt://user:pass@foobar.example
+  caPath: ''
+  identifier: rockrobo
+  mapDataTopic: valetudo/rockrobo/map_data
+  minMillisecondsBetweenMapUpdates: 10000
+  publishMapImage: true
+  topicPrefix: valetudo

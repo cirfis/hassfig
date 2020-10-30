@@ -1,0 +1,15 @@
+certfile: fullchain.pem
+influxdb:
+  database: glances
+  enabled: false
+  host: a0d7b954-influxdb
+  interval: 60
+  password: ''
+  port: 8086
+  prefix: localhost
+  username: glances
+keyfile: privkey.pem
+log_level: info
+process_info: false
+refresh_time: 10
+ssl: false

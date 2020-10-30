@@ -1,0 +1,25 @@
+banner: Welcome to the Hass.io FTP service.
+certfile: fullchain.pem
+data_port: 20
+implicit_ssl: false
+keyfile: privkey.pem
+max_clients: 5
+pasv: true
+pasv_address: ''
+pasv_max_port: 30010
+pasv_min_port: 30000
+port: 21
+ssl: false
+users:
+- addons: false
+  allow_chmod: false
+  allow_dirlist: true
+  allow_download: false
+  allow_upload: false
+  backup: false
+  config: false
+  media: true
+  password: changeme
+  share: true
+  ssl: false
+  username: hassio

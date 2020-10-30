@@ -1,0 +1,16 @@
+auto_restart: false
+deployment_key: []
+deployment_key_protocol: rsa
+deployment_password: ''
+deployment_user: ''
+git_branch: master
+git_command: pull
+git_prune: false
+git_remote: origin
+repeat:
+  active: false
+  interval: 300
+repository: null
+restart_ignore:
+- ui-lovelace.yaml
+- .gitignore

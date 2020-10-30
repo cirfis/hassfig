@@ -1,0 +1,8 @@
+databases:
+- homeassistant
+logins:
+- password: null
+  username: homeassistant
+rights:
+- database: homeassistant
+  username: homeassistant

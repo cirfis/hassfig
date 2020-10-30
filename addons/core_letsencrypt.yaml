@@ -1,0 +1,7 @@
+certfile: fullchain.pem
+challenge: http
+dns: {}
+domains:
+- null
+email: null
+keyfile: privkey.pem

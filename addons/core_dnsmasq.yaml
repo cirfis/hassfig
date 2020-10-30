@@ -1,0 +1,5 @@
+defaults:
+- 8.8.8.8
+- 8.8.4.4
+forwards: []
+hosts: []

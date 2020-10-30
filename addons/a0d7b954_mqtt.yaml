@@ -1,0 +1,11 @@
+allow_anonymous: false
+broker: true
+certfile: fullchain.pem
+keyfile: privkey.pem
+mqttusers:
+- password: ''
+  readonly: true
+  topics:
+  - '#'
+  username: ''
+ssl: true

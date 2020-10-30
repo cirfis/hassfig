@@ -1,0 +1,4 @@
+certfile: fullchain.pem
+keyfile: privkey.pem
+server_name: hassio.local
+ssl: true

@@ -4,8 +4,10 @@ env_vars:
   value: Hassio
 - name: GF_SERVER_DOMAIN
   value: cirfis.org
+- name: GF_SECURITY_ADMIN_USERNAME
+  value: admin
 - name: GF_SECURITY_ADMIN_PASSWORD
-  value: ''
+  value: 8Drag0n4
 - name: GF_SECURITY_ALLOW_EMBEDDING
   value: 'true'
 - name: GF_EXTERNAL_IMAGE_STORAGE_PROVIDER
@@ -24,7 +26,7 @@ env_vars:
   value: 'true'
 - name: GF_SERVER_ENABLE_GZIP
   value: 'true'
-grafana_ingress_user: cirfis
+grafana_ingress_user: admin
 keyfile: privkey.pem
 plugins:
 - grafana-piechart-panel

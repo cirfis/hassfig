@@ -1,0 +1,13 @@
+devices:
+- config: []
+  driver: usbhid-ups
+  name: myups
+  port: auto
+mode: netserver
+shutdown_host: 'false'
+users:
+- actions: []
+  instcmds:
+  - all
+  password: ''
+  username: ''

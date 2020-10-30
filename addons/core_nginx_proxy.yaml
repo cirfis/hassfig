@@ -1,0 +1,9 @@
+certfile: fullchain.pem
+cloudflare: false
+customize:
+  active: false
+  default: nginx_proxy_default*.conf
+  servers: nginx_proxy/*.conf
+domain: null
+hsts: max-age=31536000; includeSubDomains
+keyfile: privkey.pem

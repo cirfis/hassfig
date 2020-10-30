@@ -1,0 +1,5 @@
+address: ''
+drift: false
+latency_http: 2000
+latency_rtp: 1000
+port: 49152

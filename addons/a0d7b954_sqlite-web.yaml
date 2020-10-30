@@ -1,0 +1,6 @@
+certfile: fullchain.pem
+database_path: home-assistant_v2.db
+datasette: false
+keyfile: privkey.pem
+read_only: true
+ssl: true

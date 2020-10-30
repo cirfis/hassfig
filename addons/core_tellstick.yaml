@@ -1,0 +1,13 @@
+devices:
+- house: A
+  id: 1
+  model: selflearning-switch
+  name: Example device
+  protocol: everflourish
+  unit: '1'
+- house: A
+  id: 2
+  model: selflearning-switch
+  name: Example device two
+  protocol: everflourish
+  unit: '2'

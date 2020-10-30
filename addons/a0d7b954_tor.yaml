@@ -1,0 +1,6 @@
+client_names: []
+hidden_services: true
+ports:
+- '8123'
+socks: false
+stealth: false

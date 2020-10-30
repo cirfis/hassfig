@@ -1,0 +1,7 @@
+certfile: fullchain.pem
+default_theme: default
+keyfile: privkey.pem
+ssl: true
+themes:
+- thelounge-theme-material
+users: []
