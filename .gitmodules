@@ -1,0 +1,7 @@
+[submodule "notebooks/bokeh-examples"]
+	path = notebooks/bokeh-examples
+	url = https://github.com/bokeh/bokeh-notebooks
+
+[submodule "notebooks/home-assistant"]
+	path = notebooks/home-assistant
+	url = https://github.com/home-assistant/home-assistant-notebooks

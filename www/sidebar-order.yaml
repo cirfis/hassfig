@@ -1,0 +1,35 @@
+order:
+  - item: overview
+  - item: grow
+  - item: grafana
+  - item: influxdb
+    #href: /a0d7b954_influxdb
+  - item: hacs
+    href: /hacs/entry
+  - item: supervisor
+    href: /hassio/dashboard
+  
+  - item: map
+    hide: true
+  - item: history
+    bottom: true
+    hide: true
+  - item: logbook
+    bottom: true
+    hide: true
+  - item: media browser
+    href: /media-browser
+    hide: true
+    
+  - item: file editor
+    href: /core_configurator
+    bottom: true
+  - item: developer tools
+    href: /developer-tools/state
+    bottom: true
+  - item: logs
+    href: /uilogs
+    bottom: true
+  - item: configuration
+    href: /config/dashboard
+    bottom: true

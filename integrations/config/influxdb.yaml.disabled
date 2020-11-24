@@ -1,0 +1,10 @@
+influxdb:
+  host: Teneo.cirfis.org
+  port: 9090
+  database: homeassistant
+  username: ""
+  password: ""
+  default_measurement: state  
+  max_retries: 8
+  tags_attributes:
+    - friendly_name

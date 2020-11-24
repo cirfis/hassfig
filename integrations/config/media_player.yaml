@@ -1,0 +1,11 @@
+media_player:
+  #- platform: emby
+  #  host: 
+  #  port: 8096
+  #  api_key: !secret jellyfin_api_key
+  #  auto_hide: true
+
+  #- platform: vlc_telnet
+  #  name: "munk VLC"
+  #  host: !secret munk_IP
+  #  password: !secret munk_vlc_password

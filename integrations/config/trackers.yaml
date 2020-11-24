@@ -1,0 +1,54 @@
+device_tracker:
+  - platform: tomato 
+    http_id: !secret http_id
+    host: !secret firewrt_lan_IP
+    username: !secret firewrt_username
+    password: !secret firewrt_password
+    interval_seconds: 90
+    consider_home: 0
+    new_device_defaults:
+      track_new_devices: true
+    
+  - platform: arpscan_tracker
+    interval_seconds: 120
+    consider_home: 60
+    track_new_devices: true
+#    exclude:
+#      - 
+
+
+#  - platform: traccar
+#    host: localhost
+#    port: 18682
+#    username: !secret gmail
+#    password: !secret cirfis_pass
+
+#  - platform: ubus
+#    host: !secret firewrt_lan_IP
+#    username: !secret firewrt_username
+#    password: !secret firewrt_password
+#    dhcp_software: dnsmasq
+#    interval_seconds: 25
+#    consider_home: 60
+#    new_device_defaults:
+#      track_new_devices: true
+      
+#  - platform: ddwrt
+#    host: !secret sellers_IP
+#    username: !secret sellers_username
+#    password: !secret sellers_password
+#    wireless_only: false
+#    interval_seconds: 60
+#    consider_home: 120
+#    new_device_defaults:
+#      track_new_devices: true
+      
+#  - platform: tile
+#    username: !secret tile_username
+#    password: !secret tile_password
+
+#  - platform: bluetooth_tracker
+#    request_rssi: true
+#    interval_seconds: 60
+#    new_device_defaults:
+#      track_new_devices: false
