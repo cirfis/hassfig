@@ -26,6 +26,9 @@
 .cloud
 .google.token
 .storage
+notebooks/bokeh-examples
+notebooks/home-assistant
+"notebooks/GETTING STARTED.ipynb"
 
 # Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
 ip_bans.yaml
