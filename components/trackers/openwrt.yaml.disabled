@@ -1,0 +1,9 @@
+- platform: ubus
+  host: !secret firewrt_lan_IP
+  username: !secret firewrt_username
+  password: !secret firewrt_password
+  dhcp_software: dnsmasq
+  interval_seconds: 25
+  consider_home: 60
+  new_device_defaults:
+  track_new_devices: true

@@ -1,0 +1,9 @@
+- platform: tomato 
+  http_id: !secret http_id
+  host: !secret firewrt_lan_IP
+  username: !secret firewrt_username
+  password: !secret firewrt_password
+  interval_seconds: 90
+  consider_home: 0
+  new_device_defaults:
+    track_new_devices: true
