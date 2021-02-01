@@ -3,7 +3,9 @@ homeassistant:
   
   auth_providers:
     - type: homeassistant
-
+    - type: legacy_api_password
+      api_password: !secret legacy_api_password
+      
   customize: !include customize.yaml
 
   packages: !include_dir_named integrations

@@ -1,14 +1,13 @@
 order:
+        # Top
   - item: overview
   - item: grow
   - item: grafana
-  - item: influxdb
-    #href: /a0d7b954_influxdb
   - item: hacs
     href: /hacs/entry
   - item: supervisor
     href: /hassio/dashboard
-  
+        # Hidden
   - item: map
     hide: true
   - item: history
@@ -20,7 +19,7 @@ order:
   - item: media browser
     href: /media-browser
     hide: true
-    
+        # Bottom
   - item: file editor
     href: /core_configurator
     bottom: true
