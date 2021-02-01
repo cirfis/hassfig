@@ -1,5 +1,0 @@
-telegram_bot:
-  platform: broadcast
-  api_key: !secret telegram_api_homey
-  allowed_chat_ids:
-    - 841656683

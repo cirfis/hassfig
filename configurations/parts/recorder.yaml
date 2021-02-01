@@ -1,0 +1,3 @@
+recorder:
+  db_url: postgresql://cirfis:cirfis@postgres.cirfis.org/homeassistant
+  

@@ -1,0 +1,8 @@
+- platform: zestimate
+  api_key: !secret zillow_api_key
+  zpid:
+    - !secret zpid1 
+    - !secret zpid2
+    - !secret zpid3
+    - !secret zpid4
+    - !secret zpid5

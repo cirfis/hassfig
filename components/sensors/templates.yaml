@@ -1,0 +1,19 @@
+- platform: template
+  sensors:
+    darksky_weather_temperature:
+      friendly_name: "DarkSky Temperature"
+      unit_of_measurement: '°F'
+      value_template: "{{ state_attr('weather.dark_sky', 'temperature') }}"
+    darksky_weather_humidity:
+      friendly_name: "DarkSky Humidity"
+      unit_of_measurement: '%'
+      value_template: "{{ state_attr('weather.dark_sky', 'humidity') }}"
+
+    owm_weather_temperature:
+      friendly_name: "OpenWeatherMap Temperature"
+      unit_of_measurement: '°F'
+      value_template: "{{ state_attr('weather.openweathermap', 'temperature') }}"
+    owm_weather_humidity:
+      friendly_name: "OpenWeatherMap Humidity"
+      unit_of_measurement: '%'
+      value_template: "{{ state_attr('weather.openweathermap', 'humidity') }}"

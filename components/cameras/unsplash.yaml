@@ -1,0 +1,2 @@
+- platform: unsplash
+  api_key: !secret unsplash_access_key
