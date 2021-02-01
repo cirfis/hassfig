@@ -9,6 +9,7 @@
 !.gitignore
 !*.md
 !/custom_components/**
+!/components/**
 !/deps/**
 !/www/**
 !/appdaemon/**
@@ -20,7 +21,7 @@
 !/share/**
 !/automations/**
 !/notebooks/**
-!/integrations/**
+!/configurations/**
 
 # Ignore folders.
 .cloud
