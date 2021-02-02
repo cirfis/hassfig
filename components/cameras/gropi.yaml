@@ -1,0 +1,27 @@
+- platform: generic
+  name: "Harvest Cam"
+  still_image_url: http://10.50.1.31/picture/1/current/
+  stream_source: http://10.50.1.31:8081
+  verify_ssl: false
+  framerate: 1
+  
+- platform: generic
+  name: "Tent Cam"
+  still_image_url: http://10.50.1.30/picture/2/current/
+  stream_source: http://10.50.1.30:8082
+  verify_ssl: false
+  framerate: 1
+  
+- platform: generic
+  name: "Tent CornerCam"
+  still_image_url: http://10.50.1.30/picture/1/current/
+  stream_source: http://10.50.1.30:8081
+  verify_ssl: false
+  framerate: 1
+  
+#- platform: generic
+#  name: "Tent PiCam"
+#  still_image_url: 
+#  stream_source: 
+#  verify_ssl: false
+#  framerate: 1

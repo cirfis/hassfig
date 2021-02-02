@@ -1,0 +1,4 @@
+graphite:
+  host: prometheus.cirfis.org
+  port: 2003
+  prefix: hassio
