@@ -2,22 +2,22 @@ order:
         # Top
   - item: overview
   - item: grow
-  - item: grafana
   - item: hacs
     href: /hacs/entry
   - item: supervisor
     href: /hassio/dashboard
+  - item: grafana
         # Hidden
   - item: map
     hide: true
   - item: history
     bottom: true
     hide: true
-  - item: logbook
-    bottom: true
-    hide: true
   - item: media browser
     href: /media-browser
+    hide: true
+  - item: logbook
+    bottom: true
     hide: true
         # Bottom
   - item: file editor
@@ -27,7 +27,7 @@ order:
     href: /developer-tools/state
     bottom: true
   - item: logs
-    href: /uilogs
+    href: /config/logs
     bottom: true
   - item: configuration
     href: /config/dashboard
