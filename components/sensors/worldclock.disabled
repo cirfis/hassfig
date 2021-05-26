@@ -1,0 +1,2 @@
+- platform: worldclock
+  time_zone: America/Detroit

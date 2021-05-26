@@ -1,0 +1,6 @@
+server_controls:
+  title: Server Controls
+#  icon: fas:cogs
+  icon: fas:server
+#  url: http://localhost:8123/config/server_control
+  url: /config/server_control

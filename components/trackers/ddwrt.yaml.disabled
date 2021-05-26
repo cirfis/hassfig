@@ -1,9 +1,0 @@
-- platform: ddwrt
-  host: !secret sellers_IP
-  username: !secret sellers_username
-  password: !secret sellers_password
-  wireless_only: false
-  interval_seconds: 60
-  consider_home: 120
-  new_device_defaults:
-  track_new_devices: true

@@ -1,0 +1,7 @@
+- platform: pushbullet
+  api_key: o.GdFlBoIZLHpZDWVQqT2g6aFZGbDjxUdI
+  monitored_conditions:
+    - body
+    - title
+    - application_name
+    - source_device_iden

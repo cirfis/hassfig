@@ -1,8 +1,0 @@
-# https://www.home-assistant.io/lovelace/
-# https://www.home-assistant.io/lovelace/yaml-mode/
-#
-# It loads all resources for Lovelace dynamically from subfolders
-# inside the `lovelace/resources` directory.
-#
-# Additional Dashboards are defined here.
-lovelace:

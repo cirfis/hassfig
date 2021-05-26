@@ -1,0 +1,13 @@
+- platform: smtp
+  name: smtp_local_storeforward
+  recipient:
+    - "admin@cirfis.org"
+  server: Firebox.cirfis.org
+  port: 2525
+  username: !secret smtp_username
+  password: !secret smtp_pass
+  encryption: "none"
+  sender: "admin@cirfis.org"
+  sender_name: "OurHouse HomeAssistant"
+  debug: true
+    

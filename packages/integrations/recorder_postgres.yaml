@@ -1,0 +1,19 @@
+recorder:
+  db_url: !secret recorder_postgresdb_url
+  db_max_retries: 30  # Default 10
+  db_retry_wait: 3  # Default 3
+  auto_purge: 1  # Default 1
+  purge_keep_days: 548  # Default 10
+  commit_interval: 0 # Default 1
+  exclude:
+    domains:
+      - automation
+      - updater
+    entity_globs:
+      - sensor.weather_*
+    entities:
+      - sun.sun # Don't record sun data
+      - sensor.last_boot # Comes from 'systemmonitor' sensor platform
+      - sensor.date
+    event_types:
+      - call_service # Don't record service calls

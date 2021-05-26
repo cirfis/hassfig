@@ -1,0 +1,29 @@
+- platform: tomato 
+  http_id: !secret Ernst_http_id
+  host: !secret Ernst_IP
+  username: !secret tomato_admin_user
+  password: !secret tomato_admin_pass
+  interval_seconds: 60
+  consider_home: 180
+  new_device_defaults:
+    track_new_devices: false
+    
+- platform: tomato 
+  http_id: !secret Chiroptera_http_id
+  host: !secret Chiroptera_IP
+  username: !secret tomato_admin_user
+  password: !secret tomato_admin_pass
+  interval_seconds: 60
+  consider_home: 180
+  new_device_defaults:
+    track_new_devices: false
+    
+- platform: tomato 
+  http_id: !secret Helmut_http_id
+  host: !secret Helmut_IP
+  username: !secret tomato_admin_user
+  password: !secret tomato_admin_pass
+  interval_seconds: 60
+  consider_home: 180
+  new_device_defaults:
+    track_new_devices: false

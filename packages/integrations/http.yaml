@@ -1,0 +1,8 @@
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  use_x_forwarded_for: true
+  trusted_proxies: 
+    - 10.0.0.115
+    - 10.0.0.150
+  ip_ban_enabled: false
+#  server_host:

@@ -1,0 +1,14 @@
+- platform: smtp
+  name: smtp_local
+  recipient:
+    - "cirfis@gmail.com"
+    - "tweedcb@gmail.com"
+  server: Firebox.cirfis.org
+  port: 25
+  username: !secret smtp_username
+  password: !secret smtp_pass
+  encryption: "none"
+  sender: "admin@cirfis.org"
+  sender_name: "OurHouse HomeAssistant"
+  debug: true
+    

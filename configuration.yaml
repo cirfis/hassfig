@@ -8,4 +8,4 @@ homeassistant:
       
   customize: !include customize.yaml
 
-  packages: !include_dir_named configurations
+  packages: !include_dir_named packages

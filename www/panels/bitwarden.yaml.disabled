@@ -1,0 +1,4 @@
+bitwarden:
+  title: VaultWarden
+  icon: si:bitwarden
+  url: https://bitwarden.cirfis.org

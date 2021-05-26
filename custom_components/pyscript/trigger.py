@@ -2,6 +2,7 @@
 
 import asyncio
 import datetime as dt
+import functools
 import locale
 import logging
 import math
@@ -14,7 +15,7 @@ from homeassistant.core import Context
 import homeassistant.helpers.sun as sun
 
 from .const import LOGGER_PATH
-from .eval import AstEval
+from .eval import AstEval, EvalFunc, EvalFuncVar
 from .event import Event
 from .function import Function
 from .mqtt import Mqtt
@@ -23,7 +24,7 @@ from .state import STATE_VIRTUAL_ATTRS, State
 _LOGGER = logging.getLogger(LOGGER_PATH + ".trigger")
 
 
-STATE_RE = re.compile(r"[a-zA-Z]\w*\.[a-zA-Z]\w*(\.(([a-zA-Z]\w*)|\*))?$")
+STATE_RE = re.compile(r"\w+\.\w+(\.((\w+)|\*))?$")
 
 
 def dt_now():
@@ -38,14 +39,18 @@ def parse_time_offset(offset_str):
     value = 0
     if len(match) == 4:
         value = float(match[1].replace(" ", ""))
-        if match[2] == "m" or match[2] == "min" or match[2] == "minutes":
+        if match[2] in {"m", "min", "mins", "minute", "minutes"}:
             scale = 60
-        elif match[2] == "h" or match[2] == "hr" or match[2] == "hours":
+        elif match[2] in {"h", "hr", "hour", "hours"}:
             scale = 60 * 60
-        elif match[2] == "d" or match[2] == "day" or match[2] == "days":
+        elif match[2] in {"d", "day", "days"}:
             scale = 60 * 60 * 24
-        elif match[2] == "w" or match[2] == "week" or match[2] == "weeks":
+        elif match[2] in {"w", "week", "weeks"}:
             scale = 60 * 60 * 24 * 7
+        elif match[2] not in {"", "s", "sec", "second", "seconds"}:
+            _LOGGER.error("can't parse time offset %s", offset_str)
+    else:
+        _LOGGER.error("can't parse time offset %s", offset_str)
     return value * scale
 
 
@@ -92,10 +97,13 @@ def ident_values_changed(func_args, ident):
 
     for check_var in ident:
         var_pieces = check_var.split(".")
-        if len(var_pieces) == 2 and check_var == var_name:
+        if len(var_pieces) < 2 or len(var_pieces) > 3:
+            continue
+        var_root = f"{var_pieces[0]}.{var_pieces[1]}"
+        if var_root == var_name and (len(var_pieces) == 2 or var_pieces[2] == "old"):
             if value != old_value:
                 return True
-        elif len(var_pieces) == 3 and f"{var_pieces[0]}.{var_pieces[1]}" == var_name:
+        elif len(var_pieces) == 3 and var_root == var_name:
             if getattr(value, var_pieces[2], None) != getattr(old_value, var_pieces[2], None):
                 return True
 
@@ -133,14 +141,76 @@ class TrigTime:
 
             return wait_until_call
 
+        def user_task_create_factory(ast_ctx):
+            """Return wapper to call to astFunction with the ast context."""
+
+            async def user_task_create(func, *args, **kwargs):
+                """Implement task.create()."""
+
+                async def func_call(func, func_name, new_ast_ctx, *args, **kwargs):
+                    """Call user function inside task.create()."""
+                    ret = await new_ast_ctx.call_func(func, func_name, *args, **kwargs)
+                    if new_ast_ctx.get_exception_obj():
+                        new_ast_ctx.get_logger().error(new_ast_ctx.get_exception_long())
+                    return ret
+
+                try:
+                    if isinstance(func, (EvalFunc, EvalFuncVar)):
+                        func_name = func.get_name()
+                    else:
+                        func_name = func.__name__
+                except Exception:
+                    func_name = "<function>"
+
+                new_ast_ctx = AstEval(
+                    f"{ast_ctx.get_global_ctx_name()}.{func_name}", ast_ctx.get_global_ctx()
+                )
+                Function.install_ast_funcs(new_ast_ctx)
+                task = Function.create_task(
+                    func_call(func, func_name, new_ast_ctx, *args, **kwargs), ast_ctx=new_ast_ctx
+                )
+                Function.task_done_callback_ctx(task, new_ast_ctx)
+                return task
+
+            return user_task_create
+
         ast_funcs = {
             "task.wait_until": wait_until_factory,
+            "task.create": user_task_create_factory,
         }
         Function.register_ast(ast_funcs)
 
-        for i in range(0, 7):
-            cls.dow2int[locale.nl_langinfo(getattr(locale, f"ABDAY_{i + 1}")).lower()] = i
-            cls.dow2int[locale.nl_langinfo(getattr(locale, f"DAY_{i + 1}")).lower()] = i
+        async def user_task_add_done_callback(task, callback, *args, **kwargs):
+            """Implement task.add_done_callback()."""
+            ast_ctx = None
+            if type(callback) is EvalFuncVar:
+                ast_ctx = callback.get_ast_ctx()
+            Function.task_add_done_callback(task, ast_ctx, callback, *args, **kwargs)
+
+        funcs = {
+            "task.add_done_callback": user_task_add_done_callback,
+            "task.executor": cls.user_task_executor,
+        }
+        Function.register(funcs)
+
+        try:
+            for i in range(0, 7):
+                cls.dow2int[locale.nl_langinfo(getattr(locale, f"ABDAY_{i + 1}")).lower()] = i
+                cls.dow2int[locale.nl_langinfo(getattr(locale, f"DAY_{i + 1}")).lower()] = i
+        except AttributeError:
+            # Win10 Python doesn't have locale.nl_langinfo, so default to English days of week
+            dow = [
+                "sunday",
+                "monday",
+                "tuesday",
+                "wednesday",
+                "thursday",
+                "friday",
+                "saturday",
+            ]
+            for idx, name in enumerate(dow):
+                cls.dow2int[name] = idx
+                cls.dow2int[name[0:3]] = idx
 
     @classmethod
     async def wait_until(
@@ -291,9 +361,12 @@ class TrigTime:
             this_timeout = None
             state_trig_timeout = False
             time_next = None
+            startup_time = None
+            now = dt_now()
+            if startup_time is None:
+                startup_time = now
             if time_trigger is not None:
-                now = dt_now()
-                time_next = cls.timer_trigger_next(time_trigger, now)
+                time_next = cls.timer_trigger_next(time_trigger, now, startup_time)
                 _LOGGER.debug(
                     "trigger %s wait_until time_next = %s, now = %s", ast_ctx.name, time_next, now,
                 )
@@ -307,11 +380,13 @@ class TrigTime:
                 if this_timeout is None or this_timeout > time_left:
                     ret = {"trigger_type": "timeout"}
                     this_timeout = time_left
+                    time_next = now + dt.timedelta(seconds=this_timeout)
             if state_trig_waiting:
                 time_left = last_state_trig_time + state_hold - time.monotonic()
                 if this_timeout is None or time_left < this_timeout:
                     this_timeout = time_left
                     state_trig_timeout = True
+                    time_next = now + dt.timedelta(seconds=this_timeout)
             if this_timeout is None:
                 if state_trigger is None and event_trigger is None and mqtt_trigger is None:
                     _LOGGER.debug(
@@ -322,18 +397,33 @@ class TrigTime:
                 _LOGGER.debug("trigger %s wait_until no timeout", ast_ctx.name)
                 notify_type, notify_info = await notify_q.get()
             else:
-                try:
-                    this_timeout = max(0, this_timeout)
-                    _LOGGER.debug("trigger %s wait_until %.6g secs", ast_ctx.name, this_timeout)
-                    notify_type, notify_info = await asyncio.wait_for(notify_q.get(), timeout=this_timeout)
-                    state_trig_timeout = False
-                except asyncio.TimeoutError:
-                    if not state_trig_timeout:
-                        if not ret:
-                            ret = {"trigger_type": "time"}
-                            if time_next is not None:
-                                ret["trigger_time"] = time_next
-                        break
+                timeout_occured = False
+                while True:
+                    try:
+                        this_timeout = max(0, this_timeout)
+                        _LOGGER.debug("trigger %s wait_until %.6g secs", ast_ctx.name, this_timeout)
+                        notify_type, notify_info = await asyncio.wait_for(
+                            notify_q.get(), timeout=this_timeout
+                        )
+                        state_trig_timeout = False
+                    except asyncio.TimeoutError:
+                        actual_now = dt_now()
+                        if actual_now < time_next:
+                            this_timeout = (time_next - actual_now).total_seconds()
+                            # tests/tests_function's simple now() requires us to ignore
+                            # timeouts that are up to 1us too early; otherwise wait for
+                            # longer until we are sure we are at or past time_next
+                            if this_timeout > 1e-6:
+                                continue
+                        if not state_trig_timeout:
+                            if not ret:
+                                ret = {"trigger_type": "time"}
+                                if time_next is not None:
+                                    ret["trigger_time"] = time_next
+                            timeout_occured = True
+                    break
+                if timeout_occured:
+                    break
             if state_trig_timeout:
                 ret = state_trig_notify_info[1]
                 state_trig_waiting = False
@@ -446,26 +536,38 @@ class TrigTime:
         return ret
 
     @classmethod
-    def parse_date_time(cls, date_time_str, day_offset, now):
+    async def user_task_executor(cls, func, *args, **kwargs):
+        """Implement task.executor()."""
+        if asyncio.iscoroutinefunction(func) or not callable(func):
+            raise TypeError(f"function {func} is not callable by task.executor")
+        if isinstance(func, EvalFuncVar):
+            raise TypeError(
+                "pyscript functions can't be called from task.executor - must be a regular python function"
+            )
+        return await cls.hass.async_add_executor_job(functools.partial(func, **kwargs), *args)
+
+    @classmethod
+    def parse_date_time(cls, date_time_str, day_offset, now, startup_time):
         """Parse a date time string, returning datetime."""
         year = now.year
         month = now.month
         day = now.day
 
-        dt_str = date_time_str.strip().lower()
+        dt_str_orig = dt_str = date_time_str.strip().lower()
         #
         # parse the date
         #
-        skip = True
-        match0 = re.split(r"^0*(\d+)[-/]0*(\d+)(?:[-/]0*(\d+))?", dt_str)
-        match1 = re.split(r"^(\w+).*", dt_str)
-        if len(match0) == 5:
-            if match0[3] is None:
-                month, day = int(match0[1]), int(match0[2])
-            else:
+        match0 = re.match(r"0*(\d+)[-/]0*(\d+)(?:[-/]0*(\d+))?", dt_str)
+        match1 = re.match(r"(\w+)", dt_str)
+        if match0:
+            if match0[3]:
                 year, month, day = int(match0[1]), int(match0[2]), int(match0[3])
+            else:
+                month, day = int(match0[1]), int(match0[2])
             day_offset = 0  # explicit date means no offset
-        elif len(match1) == 3:
+            dt_str = dt_str[len(match0.group(0)) :]
+        elif match1:
+            skip = True
             if match1[1] in cls.dow2int:
                 dow = cls.dow2int[match1[1]]
                 if dow >= (now.isoweekday() % 7):
@@ -478,8 +580,8 @@ class TrigTime:
                 day_offset = 1
             else:
                 skip = False
-        else:
-            skip = False
+            if skip:
+                dt_str = dt_str[len(match1.group(0)) :]
         if day_offset != 0:
             now = dt.datetime(year, month, day) + dt.timedelta(days=day_offset)
             year = now.year
@@ -487,30 +589,34 @@ class TrigTime:
             day = now.day
         else:
             now = dt.datetime(year, month, day)
-        if skip:
-            i = dt_str.find(" ")
-            if i >= 0:
-                dt_str = dt_str[i + 1 :].strip()
-            else:
-                return now
+        dt_str = dt_str.strip()
+        if len(dt_str) == 0:
+            return now
 
         #
         # parse the time
         #
-        skip = True
-        match0 = re.split(r"0*(\d+):0*(\d+)(?::0*(\d*\.?\d+(?:[eE][-+]?\d+)?))?", dt_str)
-        if len(match0) == 5:
-            if match0[3] is not None:
+        match0 = re.match(r"0*(\d+):0*(\d+)(?::0*(\d*\.?\d+(?:[eE][-+]?\d+)?))?", dt_str)
+        if match0:
+            if match0[3]:
                 hour, mins, sec = int(match0[1]), int(match0[2]), float(match0[3])
             else:
                 hour, mins, sec = int(match0[1]), int(match0[2]), 0
+            dt_str = dt_str[len(match0.group(0)) :]
         elif dt_str.startswith("sunrise") or dt_str.startswith("sunset"):
             location = sun.get_astral_location(cls.hass)
+            if isinstance(location, tuple):
+                # HA core-2021.5.0 included this breaking change: https://github.com/home-assistant/core/pull/48573.
+                # As part of the upgrade to astral 2.2, sun.get_astral_location() now returns a tuple including the
+                # elevation.  We just want the astral.location.Location object.
+                location = location[0]
             try:
                 if dt_str.startswith("sunrise"):
                     time_sun = location.sunrise(dt.date(year, month, day))
+                    dt_str = dt_str[7:]
                 else:
                     time_sun = location.sunset(dt.date(year, month, day))
+                    dt_str = dt_str[6:]
             except Exception:
                 _LOGGER.warning("'%s' not defined at this latitude", dt_str)
                 # return something in the past so it is ignored
@@ -519,27 +625,30 @@ class TrigTime:
             hour, mins, sec = time_sun.hour, time_sun.minute, time_sun.second
         elif dt_str.startswith("noon"):
             hour, mins, sec = 12, 0, 0
+            dt_str = dt_str[4:]
         elif dt_str.startswith("midnight"):
             hour, mins, sec = 0, 0, 0
+            dt_str = dt_str[8:]
+        elif dt_str.startswith("now") and dt_str_orig == dt_str:
+            #
+            # "now" means the first time, and only matches if there was no date specification
+            #
+            hour, mins, sec = 0, 0, 0
+            now = startup_time
+            dt_str = dt_str[3:]
         else:
             hour, mins, sec = 0, 0, 0
-            skip = False
         now += dt.timedelta(seconds=sec + 60 * (mins + 60 * hour))
-        if skip:
-            i = dt_str.find(" ")
-            if i >= 0:
-                dt_str = dt_str[i + 1 :].strip()
-            else:
-                return now
         #
         # parse the offset
         #
-        if len(dt_str) > 0 and (dt_str[0] == "+" or dt_str[0] == "-"):
+        dt_str = dt_str.strip()
+        if len(dt_str) > 0:
             now = now + dt.timedelta(seconds=parse_time_offset(dt_str))
         return now
 
     @classmethod
-    def timer_active_check(cls, time_spec, now):
+    def timer_active_check(cls, time_spec, now, startup_time):
         """Check if the given time matches the time specification."""
         results = {"+": [], "-": []}
         for entry in time_spec if isinstance(time_spec, list) else [time_spec]:
@@ -566,13 +675,16 @@ class TrigTime:
                     _LOGGER.error("Invalid range expression: %s", exc)
                     return False
 
-                start = cls.parse_date_time(dt_start.strip(), 0, now)
-                end = cls.parse_date_time(dt_end.strip(), 0, start)
+                start = cls.parse_date_time(dt_start.strip(), 0, now, startup_time)
+                end = cls.parse_date_time(dt_end.strip(), 0, start, startup_time)
 
-                if start < end:
+                if start <= end:
                     this_match = start <= now <= end
                 else:  # Over midnight
                     this_match = now >= start or now <= end
+            else:
+                _LOGGER.error("Invalid time_active expression: %s", active_str)
+                return False
 
             if negate:
                 results["-"].append(not this_match)
@@ -580,12 +692,12 @@ class TrigTime:
                 results["+"].append(this_match)
 
         # An empty spec, or only neg specs, is True
-        result = any(results["+"]) if results["+"] else True and all(results["-"])
+        result = (any(results["+"]) if results["+"] else True) and all(results["-"])
 
         return result
 
     @classmethod
-    def timer_trigger_next(cls, time_spec, now):
+    def timer_trigger_next(cls, time_spec, now, startup_time):
         """Return the next trigger time based on the given time and time specification."""
         next_time = None
         if not isinstance(time_spec, list):
@@ -604,39 +716,41 @@ class TrigTime:
                     next_time = val
 
             elif len(match1) == 3:
-                this_t = cls.parse_date_time(match1[1].strip(), 0, now)
-                if this_t <= now:
+                this_t = cls.parse_date_time(match1[1].strip(), 0, now, startup_time)
+                if this_t <= now and this_t != startup_time:
                     #
                     # Try tomorrow (won't make a difference if spec has full date)
                     #
-                    this_t = cls.parse_date_time(match1[1].strip(), 1, now)
-                if now < this_t and (next_time is None or this_t < next_time):
+                    this_t = cls.parse_date_time(match1[1].strip(), 1, now, startup_time)
+                startup = now == this_t and now == startup_time
+                if (now < this_t or startup) and (next_time is None or this_t < next_time):
                     next_time = this_t
 
             elif len(match2) == 5:
                 start_str, period_str = match2[1].strip(), match2[2].strip()
-                start = cls.parse_date_time(start_str, 0, now)
+                start = cls.parse_date_time(start_str, 0, now, startup_time)
                 period = parse_time_offset(period_str)
                 if period <= 0:
                     _LOGGER.error("Invalid non-positive period %s in period(): %s", period, time_spec)
                     continue
 
                 if match2[3] is None:
-                    if now < start and (next_time is None or start < next_time):
+                    startup = now == start and now == startup_time
+                    if (now < start or startup) and (next_time is None or start < next_time):
                         next_time = start
-                    if now >= start:
+                    if now >= start and not startup:
                         secs = period * (1.0 + math.floor((now - start).total_seconds() / period))
                         this_t = start + dt.timedelta(seconds=secs)
                         if now < this_t and (next_time is None or this_t < next_time):
                             next_time = this_t
                     continue
                 end_str = match2[3].strip()
-                end = cls.parse_date_time(end_str, 0, now)
+                end = cls.parse_date_time(end_str, 0, now, startup_time)
                 end_offset = 1 if end < start else 0
                 for day in [-1, 0, 1]:
-                    start = cls.parse_date_time(start_str, day, now)
-                    end = cls.parse_date_time(end_str, day + end_offset, now)
-                    if now < start:
+                    start = cls.parse_date_time(start_str, day, now, startup_time)
+                    end = cls.parse_date_time(end_str, day + end_offset, now, startup_time)
+                    if now < start or (now == start and now == startup_time):
                         if next_time is None or start < next_time:
                             next_time = start
                         break
@@ -668,9 +782,13 @@ class TrigInfo:
         self.state_hold = self.state_trigger_kwargs.get("state_hold", None)
         self.state_hold_false = self.state_trigger_kwargs.get("state_hold_false", None)
         self.state_check_now = self.state_trigger_kwargs.get("state_check_now", False)
+        self.state_user_watch = self.state_trigger_kwargs.get("watch", None)
         self.time_trigger = trig_cfg.get("time_trigger", {}).get("args", None)
+        self.time_trigger_kwargs = trig_cfg.get("time_trigger", {}).get("kwargs", {})
         self.event_trigger = trig_cfg.get("event_trigger", {}).get("args", None)
+        self.event_trigger_kwargs = trig_cfg.get("event_trigger", {}).get("kwargs", {})
         self.mqtt_trigger = trig_cfg.get("mqtt_trigger", {}).get("args", None)
+        self.mqtt_trigger_kwargs = trig_cfg.get("mqtt_trigger", {}).get("kwargs", {})
         self.state_active = trig_cfg.get("state_active", {}).get("args", None)
         self.time_active = trig_cfg.get("time_active", {}).get("args", None)
         self.time_active_hold_off = trig_cfg.get("time_active", {}).get("kwargs", {}).get("hold_off", None)
@@ -788,11 +906,13 @@ class TrigInfo:
                 Mqtt.notify_del(self.mqtt_trigger[0], self.notify_q)
             if self.task:
                 Function.reaper_cancel(self.task)
+                self.task = None
         if self.run_on_shutdown:
             notify_type = "shutdown"
             notify_info = {"trigger_type": "time", "trigger_time": "shutdown"}
+            notify_info.update(self.time_trigger_kwargs.get("kwargs", {}))
             action_future = self.call_action(notify_type, notify_info, run_task=False)
-            Function.reaper_await(action_future)
+            Function.waiter_await(action_future)
 
     def start(self):
         """Start this trigger task."""
@@ -807,12 +927,23 @@ class TrigInfo:
 
             if self.state_trigger is not None:
                 self.state_trig_ident = set()
-                if self.state_trig_eval:
-                    self.state_trig_ident = await self.state_trig_eval.get_names()
-                self.state_trig_ident.update(self.state_trig_ident_any)
+                if self.state_user_watch:
+                    if isinstance(self.state_user_watch, list):
+                        self.state_trig_ident = set(self.state_user_watch)
+                    else:
+                        self.state_trig_ident = self.state_user_watch
+                else:
+                    if self.state_trig_eval:
+                        self.state_trig_ident = await self.state_trig_eval.get_names()
+                    self.state_trig_ident.update(self.state_trig_ident_any)
                 _LOGGER.debug("trigger %s: watching vars %s", self.name, self.state_trig_ident)
-                if len(self.state_trig_ident) > 0:
-                    await State.notify_add(self.state_trig_ident, self.notify_q)
+                if len(self.state_trig_ident) == 0 or not await State.notify_add(
+                    self.state_trig_ident, self.notify_q
+                ):
+                    _LOGGER.error(
+                        "trigger %s: @state_trigger is not watching any variables; will never trigger",
+                        self.name,
+                    )
 
             if self.active_expr:
                 self.state_active_ident = await self.active_expr.get_names()
@@ -829,6 +960,7 @@ class TrigInfo:
             state_trig_waiting = False
             state_trig_notify_info = [None, None]
             state_false_time = None
+            now = startup_time = None
             check_state_expr_on_start = self.state_check_now or self.state_hold_false is not None
 
             while True:
@@ -836,6 +968,9 @@ class TrigInfo:
                 state_trig_timeout = False
                 notify_info = None
                 notify_type = None
+                now = dt_now()
+                if startup_time is None:
+                    startup_time = now
                 if self.run_on_startup:
                     #
                     # first time only - skip waiting for other triggers
@@ -856,8 +991,7 @@ class TrigInfo:
                     check_state_expr_on_start = False
                 else:
                     if self.time_trigger:
-                        now = dt_now()
-                        time_next = TrigTime.timer_trigger_next(self.time_trigger, now)
+                        time_next = TrigTime.timer_trigger_next(self.time_trigger, now, startup_time)
                         _LOGGER.debug(
                             "trigger %s time_next = %s, now = %s", self.name, time_next, now,
                         )
@@ -867,24 +1001,35 @@ class TrigInfo:
                         time_left = last_state_trig_time + self.state_hold - time.monotonic()
                         if timeout is None or time_left < timeout:
                             timeout = time_left
+                            time_next = now + dt.timedelta(seconds=timeout)
                             state_trig_timeout = True
                     if timeout is not None:
-                        try:
-                            timeout = max(0, timeout)
-                            _LOGGER.debug("trigger %s waiting for %.6g secs", self.name, timeout)
-                            notify_type, notify_info = await asyncio.wait_for(
-                                self.notify_q.get(), timeout=timeout
-                            )
-                            state_trig_timeout = False
-                        except asyncio.TimeoutError:
-                            if not state_trig_timeout:
-                                notify_info = {
-                                    "trigger_type": "time",
-                                    "trigger_time": time_next,
-                                }
+                        while True:
+                            try:
+                                timeout = max(0, timeout)
+                                _LOGGER.debug("trigger %s waiting for %.6g secs", self.name, timeout)
+                                notify_type, notify_info = await asyncio.wait_for(
+                                    self.notify_q.get(), timeout=timeout
+                                )
+                                state_trig_timeout = False
+                                now = dt_now()
+                            except asyncio.TimeoutError:
+                                actual_now = dt_now()
+                                if actual_now < time_next:
+                                    timeout = (time_next - actual_now).total_seconds()
+                                    continue
+                                now = time_next
+                                if not state_trig_timeout:
+                                    notify_type = "time"
+                                    notify_info = {
+                                        "trigger_type": "time",
+                                        "trigger_time": time_next,
+                                    }
+                            break
                     elif self.have_trigger:
                         _LOGGER.debug("trigger %s waiting for state change or event", self.name)
                         notify_type, notify_info = await self.notify_q.get()
+                        now = dt_now()
                     else:
                         _LOGGER.debug("trigger %s finished", self.name)
                         return
@@ -894,11 +1039,13 @@ class TrigInfo:
                 #
                 trig_ok = True
                 new_vars = {}
+                user_kwargs = {}
                 if state_trig_timeout:
                     new_vars, func_args = state_trig_notify_info
                     state_trig_waiting = False
                 elif notify_type == "state":
                     new_vars, func_args = notify_info
+                    user_kwargs = self.state_trigger_kwargs.get("kwargs", {})
 
                     if not ident_any_values_changed(func_args, self.state_trig_ident_any):
                         #
@@ -980,14 +1127,17 @@ class TrigInfo:
 
                 elif notify_type == "event":
                     func_args = notify_info
+                    user_kwargs = self.event_trigger_kwargs.get("kwargs", {})
                     if self.event_trig_expr:
                         trig_ok = await self.event_trig_expr.eval(notify_info)
                 elif notify_type == "mqtt":
                     func_args = notify_info
+                    user_kwargs = self.mqtt_trigger_kwargs.get("kwargs", {})
                     if self.mqtt_trig_expr:
                         trig_ok = await self.mqtt_trig_expr.eval(notify_info)
 
                 else:
+                    user_kwargs = self.time_trigger_kwargs.get("kwargs", {})
                     func_args = notify_info
 
                 #
@@ -1001,7 +1151,7 @@ class TrigInfo:
                         self.active_expr.get_logger().error(exc)
                         trig_ok = False
                 if trig_ok and self.time_active:
-                    trig_ok = TrigTime.timer_active_check(self.time_active, dt_now())
+                    trig_ok = TrigTime.timer_active_check(self.time_active, now, startup_time)
 
                 if not trig_ok:
                     _LOGGER.debug(
@@ -1022,6 +1172,7 @@ class TrigInfo:
                     )
                     continue
 
+                func_args.update(user_kwargs)
                 if self.call_action(notify_type, func_args):
                     last_trig_time = time.monotonic()
 
@@ -1087,7 +1238,7 @@ class TrigInfo:
 
             if task_unique and task_unique_func:
                 await task_unique_func(task_unique)
-            await func.call(ast_ctx, **kwargs)
+            await ast_ctx.call_func(func, None, **kwargs)
             if ast_ctx.get_exception_obj():
                 ast_ctx.get_logger().error(ast_ctx.get_exception_long())
 
@@ -1095,6 +1246,7 @@ class TrigInfo:
             self.action, action_ast_ctx, self.task_unique, task_unique_func, hass_context, **func_args,
         )
         if run_task:
-            Function.create_task(func)
+            task = Function.create_task(func, ast_ctx=action_ast_ctx)
+            Function.task_done_callback_ctx(task, action_ast_ctx)
             return True
         return func

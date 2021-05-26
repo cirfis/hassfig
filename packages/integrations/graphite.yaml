@@ -1,0 +1,4 @@
+graphite:
+  host: !secret victoriametrics_IP
+  port: 2003
+  prefix: hassio

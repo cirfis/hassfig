@@ -1,0 +1,44 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      irrigation_zone1:
+        friendly_name: Tent Irrigation State
+        value_template: "{{ is_state('switch.irrigation_zone1','on') }}"
+  - platform: template
+    sensors:
+      irrigation_zone2:
+        friendly_name: Harvest Irrigation State
+        value_template: "{{ is_state('switch.irrigation_zone2','on') }}"
+
+input_text:
+  irrigation_zone1_times:
+    name: Tent Irrigation Times (eg. 08:00,12:00,15:00)
+    icon: mdi:chart-timeline
+  irrigation_zone2_times:
+    name: Harvest Irrigation Times (eg. 08:00,12:00,15:00)
+    icon: mdi:chart-timeline
+
+  irrigation_zone1_days:
+    name: Tent Irrigation Days (eg. Mon,THU,sat)
+    icon: mdi:timelapse
+  irrigation_zone2_days:
+    name: Harvest Irrigation Days (eg. Mon --> SUN)
+    icon: mdi:timelapse
+
+input_number:
+  irrigation_zone1_duration:
+    name: Tent Duration
+    icon: mdi:timer-sand
+    min: 0
+    max: 180
+    step: 1
+    mode: slider
+    unit_of_measurement: "seconds"
+  irrigation_zone2_duration:
+    name: Harvest Duration
+    icon: mdi:timer-sand
+    min: 0
+    max: 3200
+    mode: box
+    step: 1
+    unit_of_measurement: "seconds"

@@ -1,0 +1,8 @@
+- platform: nmap_tracker
+  hosts: 
+    - 10.0.0.1/24
+    - 10.50.1.1/24
+  interval_seconds: 60
+  consider_home: 180
+  new_device_defaults:
+    track_new_devices: false

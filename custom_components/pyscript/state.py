@@ -80,7 +80,7 @@ class State:
         for domain in all_services:
             cls.service2args[domain] = {}
             for service, desc in all_services[domain].items():
-                if "entity_id" not in desc["fields"]:
+                if "entity_id" not in desc["fields"] and "target" not in desc:
                     continue
                 cls.service2args[domain][service] = set(desc["fields"].keys())
                 cls.service2args[domain][service].discard("entity_id")
@@ -89,6 +89,7 @@ class State:
     async def notify_add(cls, var_names, queue):
         """Register to notify state variables changes to be sent to queue."""
 
+        added = False
         for var_name in var_names if isinstance(var_names, set) else {var_names}:
             parts = var_name.split(".")
             if len(parts) != 2 and len(parts) != 3:
@@ -97,6 +98,8 @@ class State:
             if state_var_name not in cls.notify:
                 cls.notify[state_var_name] = {}
             cls.notify[state_var_name][queue] = var_names
+            added = True
+        return added
 
     @classmethod
     def notify_del(cls, var_names, queue):
@@ -249,7 +252,7 @@ class State:
         return False
 
     @classmethod
-    async def get(cls, var_name):
+    def get(cls, var_name):
         """Get a state variable value or attribute from hass."""
         parts = var_name.split(".")
         if len(parts) != 2 and len(parts) != 3:
@@ -413,7 +416,7 @@ class State:
     def set_pyscript_config(cls, config):
         """Set pyscript yaml config."""
         #
-        # have to update inplace, since dist is already used as value
+        # have to update inplace, since dest is already used as value
         #
         cls.pyscript_config.clear()
         for name, value in config.items():

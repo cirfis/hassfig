@@ -1,34 +1,54 @@
 order:
         # Top
-  - item: overview
-  - item: grow
-  - item: hacs
+  - item: Overview
+    href: /lovelace/default_view
+  - item: Grow
+    href: /lovelace-grow/dash
+  - item: Grafana
+    href: /grafana
+  - item: Traccar
+    href: /a0d7b954_traccar/dashboard
+  - item: HACS
     href: /hacs/entry
-  - item: supervisor
+  - item: Supervisor
     href: /hassio/dashboard
-  - item: grafana
+  - item: Log Viewer
+    href: /a0d7b954_logviewer/dashboard
+
         # Hidden
-  - item: map
+  - item: Map
     hide: true
-  - item: history
-    bottom: true
-    hide: true
-  - item: media browser
+  - item: Media Browser
     href: /media-browser
     hide: true
-  - item: logbook
-    bottom: true
+  - item: Logs
+    href: /config/logs
     hide: true
-        # Bottom
-  - item: file editor
-    href: /core_configurator
     bottom: true
-  - item: developer tools
+  - item: Logbook
+    href: /logbook
+    hide: true
+    bottom: true
+#  - item: VaultWarden
+#    href: /bitwarden
+#  - item: Docker Container Stats
+#    href: /243ffc37_container-stats/dashboard
+#  - item: JupyterLab
+#    href: /a0d7b954_jupyterlablite/dashboard
+#  - item: Server Controls
+#    href: /server_controls
+#    bottom: true
+
+        # Bottom
+  - item: File Editor
+    href: /core_configurator/dashboard
+    bottom: true
+  - item: Developer Tools
     href: /developer-tools/state
     bottom: true
-  - item: logs
-    href: /config/logs
+  - item: History
+    href: /history
     bottom: true
-  - item: configuration
+  - item: Configuration
     href: /config/dashboard
     bottom: true

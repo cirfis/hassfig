@@ -1,0 +1,12 @@
+- platform: smtp
+  name: "smtp_gmail"
+  server: "smtp.gmail.com"
+  port: 587
+  timeout: 30
+  sender: "admin@cirfis.org"
+  encryption: starttls
+  username: "cirfis@gmail.com"
+  password: "nbyeyhnlvlgjymrh"
+  recipient:
+    - "cirfis@gmail.com"
+  sender_name: "OurHouse Home Assistant"
