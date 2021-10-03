@@ -1,0 +1,5 @@
+- platform: emby
+  host: jellyfin.cirfis.org
+  port: 443
+  api_key: !secret jellyfin_api_key
+  ssl: True

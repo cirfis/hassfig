@@ -1,6 +1,0 @@
-minio:
-  host: s3.cirfis.org
-  port: 9000
-  access_key: !secret minio_access_key
-  secret_key: !secret minio_secret_key
-  secure: false

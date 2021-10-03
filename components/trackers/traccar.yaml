@@ -1,0 +1,5 @@
+- platform: traccar
+  host: 127.0.0.1
+  port: 18682
+  username: !secret TRACCAR_EMAIL_ADDRESS
+  password: !secret TRACCAR_PASSWORD

@@ -5,4 +5,7 @@
   action:
     service: frontend.set_theme
     data:
-      name: Github Dark Theme
+      name: Google Dark Theme
+#      name: Github Dark Theme
+#      name: waves-dark
+#      name: midnight

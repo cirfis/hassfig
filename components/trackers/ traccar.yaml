@@ -1,5 +1,0 @@
-- platform: traccar
-  host: localhost
-  port: 18682
-  username: !secret gmail
-  password: !secret cirfis_pass

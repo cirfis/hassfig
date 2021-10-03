@@ -1,0 +1,4 @@
+- platform: sendgrid
+  api_key: !secret sendgrid_api_key
+  sender: hassio@cirfis.org
+  recipient: admin@cirfis.org

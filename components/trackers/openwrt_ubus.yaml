@@ -6,4 +6,4 @@
   interval_seconds: 60
   consider_home: 180
   new_device_defaults:
-    track_new_devices: true
+    track_new_devices: false

@@ -1,11 +1,35 @@
 homeassistant:
+  name: OurHouse
+  latitude: 43.03810
+  longitude: -83.80938
+  elevation: 227
+  unit_system: imperial
+  currency: USD
+  time_zone: "America/Detroit"
+  external_url: "https://homeassistant.ourhouse.services"
+  internal_url: "http://hassio.cirfis.org:8123"
+  allowlist_external_dirs:
+    - "/tmp"
+  #    - "/Media/media"
+  #    - "/Media/downloads"
+  #    - "/Data/housestack"
+  #    - "/Data/backups"
+  allowlist_external_urls:
+    - "http://hassio:8123"
+    - "http://veterno.cirfis.org:8123"
+    - "https://homeassistant.cirfis.org"
+    - "https://veterno.cirfis.org"
+    - "http://hassio.cirfis.org:8123"
+  #  media_dirs:
+  #    media: /Media/media
+  #    recordings:
   legacy_templates: false
-  
-  auth_providers:
-    - type: homeassistant
-    #- type: legacy_api_password
-    #  api_password: !secret legacy_api_password
-      
+  #  auth_providers:
+  #    - type: homeassistant
+  #- type: legacy_api_password
+  #  api_password: !secret legacy_api_password
+
   customize: !include customize.yaml
+  customize_glob: !include customize_glob.yaml
 
   packages: !include_dir_named packages

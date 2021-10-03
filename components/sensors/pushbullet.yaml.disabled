@@ -1,0 +1,7 @@
+- platform: pushbullet
+  api_key: !secret pushbullet_api_key
+  monitored_conditions:
+    - body
+    - title
+    - application_name
+    - source_device_iden

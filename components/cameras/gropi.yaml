@@ -3,42 +3,67 @@
   still_image_url: http://10.50.1.31/picture/1/current/
   mjpeg_url: http://10.50.1.31:8081/mjpeg
   verify_ssl: false
-  
+
 - platform: mjpeg
   name: "Tent CornerCam"
   still_image_url: http://10.50.1.32/picture/1/current/
   mjpeg_url: http://10.50.1.32:8081/mjpeg
   verify_ssl: false
 
-#- platform: mjpeg
-#  name: "Harvest CloseupCam"
-#  still_image_url: http://10.50.1.32/picture/2/current/
-#  mjpeg_url: http://10.50.1.32:8082/mjpeg
-#  verify_ssl: false
+- platform: mjpeg
+  name: "Harvest SkyCam"
+  still_image_url: http://10.50.1.32/picture/2/current/
+  mjpeg_url: http://10.50.1.32:8082/mjpeg
+  verify_ssl: false
 
 - platform: mjpeg
-  name: "Tent PoleCam"
+  name: "Tent OrbCam"
   still_image_url: http://10.50.1.30/picture/2/current/
   mjpeg_url: http://10.50.1.30:8082/mjpeg
   verify_ssl: false
-  
+
 - platform: mjpeg
-  name: "Tent SkyCam"
-  still_image_url: http://10.50.1.30/picture/1/current/
-  mjpeg_url: http://10.50.1.30:8081/mjpeg
+  name: "BrewerCam"
+  still_image_url: "http://10.0.0.83:8080?action=snapshot"
+  #mjpeg_url: http://10.0.0.30:8080/
+  mjpeg_url: "http://10.0.0.83:8080?action=stream"
+
+#- platform: generic
+#  name: "BrewerCam RTSP"
+#  still_image_url: 'http://10.0.0.30:8080?action=snapshot'
+#  stream_source: 'rtsp://10.0.0.30:554'
+#  verify_ssl: false
+
+#- platform: mjpeg
+#  name: "Tent SkyCam"
+#  still_image_url: http://10.50.1.30/picture/1/current/
+#  mjpeg_url: http://10.50.1.30:8081/mjpeg
+#  verify_ssl: false
+
+- platform: mjpeg
+  name: "Closet PiCam"
+  still_image_url: http://10.50.1.33/picture/1/current/
+  mjpeg_url: http://10.50.1.33:8081/mjpeg
+  verify_ssl: false
+
+- platform: mjpeg
+  name: "Closet CloneCam"
+  still_image_url: http://10.50.1.33/picture/2/current/
+  mjpeg_url: http://10.50.1.33:8082/mjpeg
   verify_ssl: false
 
 - platform: combined
-  base_address: https://homeassistant.ourhouse.services/
-  #base_address: http://hassio.cirfis.org:8123/
+  #base_address: https://homeassistant.ourhouse.services/
+  base_address: http://hassio.cirfis.org:8123
   entities:
-    - camera.tent_cornercam
+    #    - camera.tent_cornercam
     - camera.harvest_nightcam
-    - camera.tent_skycam
-#    - camera.harvest_closeupcam
-    - camera.tent_polecam
+    - camera.closet_clonecam
+    - camera.harvest_skycam
+    #    - camera.tent_orbcam
+    - camera.closet_picam
+  #    - camera.brewercam
   name: Grow Feeds Combined
-    
 #- platform: generic
 #  name: "HarvestCam"
 #  still_image_url: http://10.50.1.31/picture/1/current/
@@ -46,14 +71,13 @@
 #  verify_ssl: false
 #  framerate: 2
 
-  
 #- platform: mjpeg
 #  name: "Tent HangCam"
 #  still_image_url: http://10.50.1.30/picture/2/current/
 #  stream_source: http://10.50.1.30:8082/mjpeg
 #  verify_ssl: false
 #  framerate: 2
-  
+
 #- platform: mjpeg
 #  name: "Tent CornerCam"
 #  still_image_url: http://10.50.1.30/picture/1/current/
@@ -63,7 +87,7 @@
 
 #- platform: generic
 #  name: "Tent PiCam"
-#  still_image_url: 
-#  stream_source: 
+#  still_image_url:
+#  stream_source:
 #  verify_ssl: false
 #  framerate: 1

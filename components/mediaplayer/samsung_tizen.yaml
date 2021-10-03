@@ -1,0 +1,13 @@
+- platform: samsungtv_tizen
+  name: GreatRoom Samsung TV
+#  host: "10.50.1.115"
+  host: "Samsung-GreatRoom.cirfis.org"
+  mac: "64:E7:D8:CD:7B:58"
+#  update_method: "ping"
+  update_method: "websockets"
+#  update_method: "smartthings"
+  show_channel_number: true
+  show_logos: "transparent-color"
+  api_key: !secret smartthings_api_token
+  device_id: !secret greatroom_tv_device-id
+    

@@ -1,0 +1,4 @@
+- platform: vlc_telnet
+  name: "munk VLC"
+  host: !secret munk_IP
+  password: !secret munk_vlc_password

@@ -2,4 +2,4 @@ grafana:
   title: Grafana
   icon: si:grafana
   #url: http://hassio/api/hassio_ingress/cJhp2nh4q0fjQ0uDzyaacryHcpEC7PmZp5Tl5eDN7RI/d/rYdddlPWk/
-  url: http://grafana.cirfis.org:3000/
+  url: https://grafana.cirfis.org/

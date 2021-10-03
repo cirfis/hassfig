@@ -1,0 +1,10 @@
+- alias: "Notify Snapshot Failure"
+  trigger:
+    platform: event
+    event_type: auto_backup.snapshot_failed
+  action:
+    service: persistent_notification.create
+    data:
+      title: "Snapshot Failed."
+      message: "Name: {{ trigger.event.data.name }}\nError: {{ trigger.event.data.error }}"
+
