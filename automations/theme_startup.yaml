@@ -1,11 +1,16 @@
-- alias: 'Set theme at startup'
+- alias: "Set theme at startup"
   trigger:
-   - platform: homeassistant
-     event: start
+    - platform: homeassistant
+      event: start
   action:
     service: frontend.set_theme
     data:
+      #      name: Github Dark Theme
+      #name: waves-dark
+      #name: midnight
+      #name: amoled
+      #name: ios-dark-mode-dark-blue
+      #name: ios-dark-mode-dark-blue-red
+      #name: google_dark_theme
       name: Google Dark Theme
-#      name: Github Dark Theme
-#      name: waves-dark
-#      name: midnight
+      #name: noctis

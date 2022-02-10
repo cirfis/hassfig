@@ -1,0 +1,75 @@
+- alias: "Turn on WaxWarmer in Morning"
+  trigger:
+    - platform: time
+      # Trigger waxWarmer ON at 5:00am
+      at: "05:00:00"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.smart_socket_socket_1
+- alias: "Turn off WaxWarmer in Morning"
+  trigger:
+    - platform: time
+      # Trigger waxWarmer OFF at 5:30am
+      at: "05:30:00"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.smart_socket_socket_1
+
+- alias: "Turn on WaxWarmer at Noontime"
+  trigger:
+    - platform: time
+      # Trigger waxWarmer ON at 11:00am
+      at: "11:00:00"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.smart_socket_socket_1
+- alias: "Turn off WaxWarmer at Noontime"
+  trigger:
+    - platform: time
+      # Trigger waxWarmer OFF at 11:30am
+      at: "11:30:00"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.smart_socket_socket_1
+
+- alias: "Turn on WaxWarmer in Afternoon"
+  trigger:
+    - platform: time
+      # Trigger waxWarmer ON at 2:00pm
+      at: "14:00:00"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.smart_socket_socket_1
+- alias: "Turn off WaxWarmer in Afternoon"
+  trigger:
+    - platform: time
+      # Trigger waxWarmer OFF at 2:45m
+      at: "14:45:00"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.smart_socket_socket_1
+
+- alias: "Turn on WaxWarmer in Evening"
+  trigger:
+    - platform: time
+      # Trigger waxWarmer ON at 7:00pm
+      at: "19:00:00"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.smart_socket_socket_1
+- alias: "Turn off WaxWarmer in Evening"
+  trigger:
+    - platform: time
+      # Trigger waxWarmer OFF at 7:30pm
+      at: "19:35:00"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.smart_socket_socket_1

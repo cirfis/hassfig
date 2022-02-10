@@ -1,0 +1,170 @@
+- id: '1643506372451'
+  alias: WaxWarmer On
+  description: Turn on Upstairs GreatRoom WaxWarmer
+  trigger:
+  - platform: time
+    at: input_datetime.next_waxwarmer
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.smart_socket_socket_1
+  - service: timer.start
+    data:
+      duration: '0'
+    target:
+      entity_id: timer.waxwarmer_timer
+  - condition: state
+    entity_id: automation.waxwarmer_on
+    state: 'on'
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.last_waxwarmer
+    data:
+      datetime: '{{ now().strftime(''%Y-%m-%d %H:%M:%S'') }}'
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.next_waxwarmer
+    data:
+      datetime: '{{ (((now().timestamp() + ((states("input_number.waxwarmer_cyclelength")|int)
+        * 60))+2700)) | timestamp_custom }}'
+  - service: input_datetime.reload
+  mode: single
+- id: '1643506665176'
+  alias: WaxWarmer Off
+  description: Turn off Upstairs GreatRoom WaxWarmer and Update "WaxWarmer Next"
+  trigger:
+  - platform: state
+    entity_id: automation.waxwarmer_on
+    attribute: last_triggered
+    for:
+      hours: 0
+      minutes: 45
+      seconds: 30
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.waxwarmer_timer
+  - platform: template
+    value_template: '{{ (now().timestamp() - states("input_datetime.last_waxwarmer")|as_timestamp)|int
+      > 2715 }}'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.smart_socket_socket_1
+  - condition: state
+    entity_id: automation.waxwarmer_on
+    state: 'on'
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.next_waxwarmer
+    data:
+      datetime: '{{ (now().timestamp()|int + (states("input_number.waxwarmer_cyclelength")|int
+        * 60)|float) | timestamp_custom }}'
+  - service: input_datetime.reload
+  - condition: state
+    entity_id: timer.waxwarmer_timer
+    state: active
+  - service: timer.finish
+    target:
+      entity_id: timer.waxwarmer_timer
+  mode: single
+- id: '1643628453246'
+  alias: WaxWarmer Start
+  description: Activate "WaxWarmer On" Automation at "WaxWarmer CycleStart"
+  trigger:
+  - platform: time
+    at: input_datetime.waxwarmer_cyclestart
+  condition: []
+  action:
+  - service: automation.turn_on
+    target:
+      entity_id:
+      - automation.waxwarmer_on
+      - automation.waxwarmer_off
+  - service: automation.trigger
+    target:
+      entity_id: automation.waxwarmer_on
+    data:
+      skip_condition: true
+  mode: single
+- id: '1643635962808'
+  alias: WaxWarmer Stop
+  description: Stop WaxWarmer Repeat Cycle at "WaxWarmer CycleStop"
+  trigger:
+  - platform: time
+    at: input_datetime.waxwarmer_cyclestop
+  condition: []
+  action:
+  - service: automation.turn_off
+    target:
+      entity_id:
+      - automation.waxwarmer_on
+      - automation.waxwarmer_off
+  - service: automation.trigger
+    target:
+      entity_id: automation.waxwarmer_off
+    data:
+      skip_condition: false
+  - service: automation.turn_on
+    target:
+      entity_id: automation.waxwarmer_timerstart
+  mode: single
+- id: '1643645770879'
+  alias: WaxWarmer Limit
+  description: Turn off WaxWarmer if it is on for 50 minutes
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: b28ffe08768eb310b3cb810483a4f8a4
+    entity_id: switch.smart_socket_socket_1
+    domain: switch
+    for:
+      hours: 0
+      minutes: 50
+      seconds: 1
+  condition:
+  - condition: device
+    type: is_on
+    device_id: b28ffe08768eb310b3cb810483a4f8a4
+    entity_id: switch.smart_socket_socket_1
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: b28ffe08768eb310b3cb810483a4f8a4
+    entity_id: switch.smart_socket_socket_1
+    domain: switch
+  mode: single
+- id: '1643658497298'
+  alias: WaxWarmer UpdateNext
+  description: ''
+  trigger:
+  - platform: event
+    event_type: state_changed
+    event_data:
+      entity_id: input_number.waxwarmer_cyclelength
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: automation.waxwarmer_on
+      state: 'on'
+    - condition: template
+      value_template: '{% set newval =  ((states("input_datetime.last_waxwarmer")|as_timestamp)|int)
+        + ((states("input_number.waxwarmer_cyclelength")|int) * 60) %}
+
+        {{ newval|int < (today_at(states("input_datetime.waxwarmer_cyclestop")) |
+        as_timestamp | int) }}'
+  action:
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.next_waxwarmer
+    data:
+      datetime: '{% set newval =  (as_timestamp(states("input_datetime.last_waxwarmer"))|int)
+        + ((states("input_number.waxwarmer_cyclelength")|int) * 60) %} {% if newval|int
+        > now().timestamp()|int %} {{ (states("input_datetime.last_waxwarmer")|as_timestamp|float
+        + (states("input_number.waxwarmer_cyclelength")|float * 60)) | timestamp_custom
+        }} {% else %} {{ (now().timestamp() + 3) | timestamp_custom }} {% endif -%}'
+  - service: input_datetime.reload
+  mode: single

@@ -1,12 +1,12 @@
 homeassistant:
   name: OurHouse
-  latitude: 43.03810
-  longitude: -83.80938
-  elevation: 227
+  latitude: 43.0381
+  longitude: -83.8093333
+  elevation: 198
   unit_system: imperial
   currency: USD
   time_zone: "America/Detroit"
-  external_url: "https://homeassistant.ourhouse.services"
+  external_url: "https://6429.casa"
   internal_url: "http://hassio.cirfis.org:8123"
   allowlist_external_dirs:
     - "/tmp"
@@ -17,9 +17,15 @@ homeassistant:
   allowlist_external_urls:
     - "http://hassio:8123"
     - "http://veterno.cirfis.org:8123"
-    - "https://homeassistant.cirfis.org"
-    - "https://veterno.cirfis.org"
     - "http://hassio.cirfis.org:8123"
+    - "https://6429.casa"
+    - "https://www.6429.casa"
+    - "https://homeassistant.6429.casa"
+    - "https://hassio.6429.casa"
+    - "https://homeassistant.ourhouse.services"
+    - "https://hassio.ourhouse.services"
+    - "https://homeassistant.cirfis.org"
+  #    - "https://veterno.cirfis.org"
   #  media_dirs:
   #    media: /Media/media
   #    recordings:

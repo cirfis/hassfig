@@ -1,10 +1,12 @@
 influxdb:
-  host: influxdb.cirfis.org
+  api_version: 1
+  host: !secret victoriametrics_IP
   port: 8428
   database: homeassistant
-  username: ""
-  password: ""
-  default_measurement: state  
-  max_retries: 8
+  precision: ms
+  #username: ""
+  #password: ""
+  default_measurement: state
+  max_retries: 10
   tags_attributes:
     - friendly_name

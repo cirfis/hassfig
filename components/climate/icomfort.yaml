@@ -1,0 +1,9 @@
+  platform: myicomfort
+  name: OurHouse
+  username: !secret icomfort_clouduser
+  password: !secret icomfort_cloudpass
+  system: 0 
+  zone: 0 
+  min_temp: 55
+  max_temp: 90
+  cloud_svc: lennox

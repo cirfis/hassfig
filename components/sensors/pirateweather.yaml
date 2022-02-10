@@ -1,0 +1,12 @@
+- platform: pirateweather
+  api_key: !secret pirateweather_api_key
+  scan_interval: "00:15:00"
+  monitored_conditions:
+    - temperature
+    - precip_probability
+    - precip_type
+    - humidity
+    - cloud_cover
+    - nearest_storm_distance
+    - precip_intensity
+    - wind_speed

@@ -3,12 +3,14 @@
     platform: time_pattern # Perform backup every 3 hours.
     hours: "/3"
   action:
-    service: auto_backup.snapshot_partial # Only perform a partial snapshot to save storage.
+    service: auto_backup.backup_partial # Only perform a partial snapshot to save storage.
     data:
       name: "AutoBackup: {{ now().strftime('%a, %-I:%M %p (%d/%m/%Y)') }}"
       addons:
-        - core_mariadb # It doesn't matter if you use the addon slug or name.
-        - a0d7b954_bitwarden
+        - mariadb # It doesn't matter if you use the addon slug or name.
+        #- bitwarden
+        - chrony
+        - a0d7b954_vscode
       folders:
         - homeassistant
         - share
@@ -29,7 +31,7 @@
       - sat
       - sun
   action:
-    service: auto_backup.snapshot_full
+    service: auto_backup.backup_full
     data:
       name: "DailyBackup: {{ now().strftime('%A, %B %-d, %Y') }}"
       keep_days: 7

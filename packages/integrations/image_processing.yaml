@@ -1,0 +1,48 @@
+image_processing:
+  - platform: doods
+    scan_interval: 180
+    url: "http://10.0.0.153:8080"
+    timeout: 60
+    detector: default
+    #auth_key: !secret doods_authkey
+    source:
+      #- entity_id: camera.front_door
+      #- entity_id: camera.garage
+      - entity_id: camera.harvest_nightcam_mjpeg
+      - entity_id: camera.camera1
+    file_out:
+      - "/tmp/{{ camera_entity.split('.')[1] }}_latest.jpg"
+      - "/tmp/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
+    confidence: 50
+    # This global detection area is required for all labels
+    area:
+      # Exclude top 5% of image
+      top: 0.05
+      # Exclude right 5% of image
+      right: 0.95
+      # The entire detection must be inside this box
+      covers: true
+    labels:
+      - name: person
+        confidence: 40
+        area:
+          # Exclude top 2% of image
+          top: 0.02
+          # Exclude right 1% of image
+          right: 0.01
+          # Any part of the detection inside this area will trigger
+          covers: false
+      #- car
+      #- truck
+      - name: fire
+        confidence: 60
+        area:
+          top: 0.0
+          right: 1.0
+          covers: false
+      - name: cat
+        confidence: 50
+        area:
+          top: 0.05
+          right: 1.0
+          covers: false

@@ -1,9 +1,38 @@
 - platform: ddwrt
   host: !secret Camille_IP
-  username: !secret tomato_admin_user
-  password: !secret tomato_admin_pass
+  username: !secret ddwrt_admin_user
+  password: !secret ddwrt_admin_pass
   wireless_only: true
   interval_seconds: 60
   consider_home: 180
   new_device_defaults:
     track_new_devices: false
+
+- platform: ddwrt
+  host: !secret Ernst_IP
+  username: !secret ddwrt_admin_user
+  password: !secret ddwrt_admin_pass
+  wireless_only: true
+  interval_seconds: 60
+  consider_home: 180
+  new_device_defaults:
+    track_new_devices: false
+
+- platform: ddwrt
+  host: !secret Chiroptera_IP
+  username: !secret ddwrt_admin_user
+  password: !secret ddwrt_admin_pass
+  wireless_only: true
+  interval_seconds: 60
+  consider_home: 180
+  new_device_defaults:
+    track_new_devices: false
+#- platform: ddwrt
+#  host: !secret Helmut_IP
+#  username: !secret ddwrt_admin_user
+#  password: !secret ddwrt_admin_pass
+#  wireless_only: true
+#  interval_seconds: 60
+#  consider_home: 180
+#  new_device_defaults:
+#    track_new_devices: false

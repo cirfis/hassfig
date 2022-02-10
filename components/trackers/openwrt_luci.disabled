@@ -1,4 +1,4 @@
 - platform: luci
-  host: !secret router_IP
+  host: !secret router_HOST
   username: !secret router_admin_user
   password: !secret router_admin_password

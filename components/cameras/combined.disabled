@@ -1,0 +1,13 @@
+- platform: combined
+  #base_address: https://homeassistant.ourhouse.services/
+  #base_address: http://hassio.cirfis.org:8123
+  base_address: http://localhost:8123
+  entities:
+    - camera.closet_picam_mjpeg
+    #- camera.tent_cornercam_mjpeg
+    - camera.harvest_nightcam_mjpeg
+    #- camera.brewercam
+    #- camera.harvest_skycam_mjpeg
+    - camera.tent_picam_mjpeg
+
+  name: Grow Feeds Combined

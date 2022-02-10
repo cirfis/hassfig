@@ -1,9 +1,0 @@
-- platform: ubus
-  host: !secret router_IP
-  username: !secret router_admin_user
-  password: !secret router_admin_password
-  dhcp_software: dnsmasq
-  interval_seconds: 60
-  consider_home: 180
-  new_device_defaults:
-    track_new_devices: false

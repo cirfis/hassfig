@@ -1,1 +1,3 @@
-automation: !include_dir_merge_list /config/automations
+automation manual: !include_dir_merge_list /config/automations
+
+automation ui: !include /config/automations.yaml
